@@ -7,12 +7,12 @@
     #profile_picture
   .col-sm-4
     .col-sm-4 Name
-    .col-sm-8= @user.name
+    .col-sm-8= @profile.user.name
 
     .col-sm-4 Email
-    .col-sm-8= @user.email
+    .col-sm-8= @profile.user.email
 
--if @user.provider == 'facebook'
+-if @profile.user.provider == 'facebook'
   :javascript
     window.fbAsyncInit = function() {
       FB.init({
@@ -20,7 +20,7 @@
         xfbml      : true,
         version    : 'v2.0'
       });
-      FB.api("/#{@user.uid}/picture?type=large",
+      FB.api("/#{@profile.user.uid}/picture?type=large",
         function (response) {
           if (response && !response.error) {
             console.log(response.data.url);
