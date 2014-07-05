@@ -27,6 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    angularjs-rails (1.2.18)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     bcrypt (3.1.7-x86-mingw32)
@@ -53,6 +54,9 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    gon (5.0.4)
+      actionpack (>= 2.3.0)
+      json
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -171,10 +175,12 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  angularjs-rails
   bootstrap-sass (~> 3.1.1)
   coffee-rails (~> 4.0.0)
   devise
   figaro
+  gon
   haml
   haml-rails
   html2haml
