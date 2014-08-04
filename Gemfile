@@ -51,3 +51,5 @@ gem "figaro"
 gem 'omniauth-facebook'
 gem 'angularjs-rails'
 gem 'gon'
+
+gem 'quiet_assets', group: :development
