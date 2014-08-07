@@ -6,7 +6,7 @@
   .col-xs-6.col-sm-6.col-md-6
     = link_to "Facebook", user_omniauth_authorize_path(:facebook), "class" => 'btn btn-lg btn-primary btn-block'
   .col-xs-6.col-sm-6.col-md-6
-    %a.btn.btn-lg.btn-info.btn-block{href: "#"} Google
+    = link_to "Google", user_omniauth_authorize_path(:google_oauth2), "class" => 'btn btn-lg btn-info btn-block'
 .login-or
   %hr.hr-or/
   %span.span-or or
