@@ -14,6 +14,15 @@ class User < ActiveRecord::Base
         user.email = SecureRandom.hex + "@levifikri.com"
       end
 
+      case auth.provider
+        when "facebook"
+          user.external_profile_url = auth.info.urls.Facebook
+        when "twitter"
+          user.external_profile_url = auth.info.urls.Twitter
+        when "google_oauth2"
+          user.external_profile_url = auth.extra.raw_info.profile
+      end
+
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name
       user.image = auth.info.image
