@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   def self.from_omniauth(auth)
+    logger.info(auth)
+
     where(auth.slice(:provider, :uid)).first_or_create do |user|
       if auth.info.email
         user.email = auth.info.email
