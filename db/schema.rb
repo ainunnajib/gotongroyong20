@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626023500) do
+ActiveRecord::Schema.define(version: 20140807141857) do
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140626023500) do
     t.string   "uid"
     t.string   "name"
     t.string   "image"
+    t.string   "external_profile_url"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

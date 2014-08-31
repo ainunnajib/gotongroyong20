@@ -49,6 +49,8 @@ gem "haml-rails"
 gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]
 gem "figaro"
 gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
 gem 'angularjs-rails'
 gem 'gon'
 
