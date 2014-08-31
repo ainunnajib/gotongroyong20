@@ -1,39 +1,38 @@
-%p#notice= notice
+%table.table.table-striped
+  %tbody
+    %tr
+      %td Title:
+      %td= @problem.title
+    %tr
+      %td Category:
+      %td= @problem.category_name
+    %tr
+      %td Summary:
+      %td= @problem.summary
+    %tr
+      %td Cause:
+      %td= @problem.cause
+    %tr
+      %td Symptom:
+      %td= @problem.symptom
+    %tr
+      %td Effect:
+      %td= @problem.effect
+    %tr
+      %td Urgency:
+      %td= @problem.urgency_name
+    %tr
+      %td Province:
+      %td= @problem.province.name
+    %tr
+      %td Kabupaten:
+      %td= @problem.kabupaten.name
+    %tr
+      %td Kelurahan:
+      %td= @problem.kecamatan.name
+    %tr
+      %td Reported by:
+      %td= @problem.reported_by.name
 
-%p
-  %b Title:
-  = @problem.title
-%p
-  %b Category:
-  = @problem.category_id
-%p
-  %b Summary:
-  = @problem.summary
-%p
-  %b Cause:
-  = @problem.cause
-%p
-  %b Symptom:
-  = @problem.symptom
-%p
-  %b Effect:
-  = @problem.effect
-%p
-  %b Urgency:
-  = @problem.urgency
-%p
-  %b Province:
-  = @problem.province_id
-%p
-  %b Kabupaten:
-  = @problem.kabupaten_id
-%p
-  %b Kelurahan:
-  = @problem.kelurahan_id
-%p
-  %b Reported by:
-  = @problem.reported_by.name
-
-= link_to 'Edit', edit_problem_path(@problem)
-\|
-= link_to 'Back', problems_path
+= link_to 'Edit', edit_problem_path(@problem), class: 'btn btn-info'
+= link_to 'Destroy', @problem, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger'

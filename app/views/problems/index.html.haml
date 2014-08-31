@@ -25,12 +25,11 @@
           %th Reported by
           %th
           %th
-          %th
 
       %tbody
         - @problems.each do |problem|
           %tr
-            %td= problem.title
+            %td=link_to problem.title, problem
             %td= problem.category_name
             %td= problem.summary
             %td= problem.cause
@@ -41,6 +40,3 @@
             %td= problem.kabupaten.name
             %td= problem.kecamatan.name
             %td= problem.reported_by.name
-            %td= link_to 'Show', problem
-            %td= link_to 'Edit', edit_problem_path(problem)
-            %td= link_to 'Destroy', problem, :method => :delete, :data => { :confirm => 'Are you sure?' }
