@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831073459) do
+ActiveRecord::Schema.define(version: 20140831081257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "kabupatens", force: true do |t|
+    t.string  "name"
+    t.integer "province_id"
+  end
+
+  create_table "kecamatans", force: true do |t|
+    t.string  "name"
+    t.integer "kabupaten_id"
+  end
 
   create_table "problems", force: true do |t|
     t.string   "title"
@@ -30,6 +40,10 @@ ActiveRecord::Schema.define(version: 20140831073459) do
     t.integer  "reported_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "provinces", force: true do |t|
+    t.string "name"
   end
 
   create_table "users", force: true do |t|
