@@ -1,5 +1,6 @@
 class ProblemsController < ApplicationController
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /problems
   # GET /problems.json
@@ -25,6 +26,7 @@ class ProblemsController < ApplicationController
   # POST /problems.json
   def create
     @problem = Problem.new(problem_params)
+    @problem.reported_by = current_user
 
     respond_to do |format|
       if @problem.save
@@ -40,6 +42,8 @@ class ProblemsController < ApplicationController
   # PATCH/PUT /problems/1
   # PATCH/PUT /problems/1.json
   def update
+    @problem.reported_by = current_user
+
     respond_to do |format|
       if @problem.update(problem_params)
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }

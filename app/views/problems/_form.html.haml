@@ -1,43 +1,52 @@
-= form_for @problem do |f|
-  - if @problem.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@problem.errors.count, "error")} prohibited this problem from being saved:"
-      %ul
-        - @problem.errors.full_messages.each do |msg|
-          %li= msg
+%div{'ng-app' => 'problemApp', 'ng-controller' => 'NewProblemController'}
+  = form_for @problem, html: {class:'form-horizontal'} do |f|
+    - if @problem.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@problem.errors.count, "error")} prohibited this problem from being saved:"
+        %ul
+          - @problem.errors.full_messages.each do |msg|
+            %li= msg
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :category_id
-    = f.number_field :category_id
-  .field
-    = f.label :summary
-    = f.text_area :summary
-  .field
-    = f.label :cause
-    = f.text_area :cause
-  .field
-    = f.label :symptom
-    = f.text_area :symptom
-  .field
-    = f.label :effect
-    = f.text_area :effect
-  .field
-    = f.label :urgency
-    = f.number_field :urgency
-  .field
-    = f.label :province_id
-    = f.number_field :province_id
-  .field
-    = f.label :kabupaten_id
-    = f.number_field :kabupaten_id
-  .field
-    = f.label :kelurahan_id
-    = f.number_field :kelurahan_id
-  .field
-    = f.label :reported_by
-    = f.number_field :reported_by
-  .actions
-    = f.submit 'Save'
+    .form-group
+      = f.label :title, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :title, class: 'form-control'
+    .form-group
+      = f.label :category_id, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.number_field :category_id, class: 'form-control'
+    .form-group
+      = f.label :summary, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :summary, class: 'form-control'
+    .form-group
+      = f.label :cause, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :cause, class: 'form-control'
+    .form-group
+      = f.label :symptom, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :symptom, class: 'form-control'
+    .form-group
+      = f.label :effect, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :effect, class: 'form-control'
+    .form-group
+      = f.label :urgency, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.number_field :urgency, class: 'form-control'
+    .form-group
+      = f.label :lokasi, class: 'col-md-2 control-label'
+      .col-md-3
+        = f.select :province_id, [], {}, {'ng-model' => 'newProblem.province',
+          'ng-options' => 'province.name for province in provinces', 'ng-change' => 'getKabupatens(newProblem.province)',
+          class: 'form-control'}
+      .col-md-3{'ng-if' => 'kabupatens.length > 0'}
+        = f.select :kabupaten_id, [], {}, {'ng-model' => 'newProblem.kabupaten', placeholder: 'Kabupaten',
+          'ng-options' => 'kabupaten.name for kabupaten in kabupatens', 'ng-change' => 'getKecamatans(newProblem.province, newProblem.kabupaten)',
+          class: 'form-control'}
+      .col-md-3{'ng-if' => 'kecamatans.length > 0'}
+        = f.select :kelurahan_id, [], {}, {'ng-model' => 'newProblem.kecamatan', 'ng-options' => 'kecamatan.name for kecamatan in kecamatans', class: 'form-control'}
+    .form-group
+      .col-md-10.col-md-offset-2
+        = f.submit 'Save', class: 'btn btn-primary'
