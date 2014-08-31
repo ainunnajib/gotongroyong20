@@ -10,7 +10,7 @@ one:
   urgency: 1
   province_id: 1
   kabupaten_id: 1
-  kelurahan_id: 1
+  kecamatan_id: 1
   reported_by: 1
 
 two:
@@ -23,5 +23,5 @@ two:
   urgency: 1
   province_id: 1
   kabupaten_id: 1
-  kelurahan_id: 1
+  kecamatan_id: 1
   reported_by: 1

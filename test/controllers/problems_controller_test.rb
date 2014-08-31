@@ -18,7 +18,7 @@ class ProblemsControllerTest < ActionController::TestCase
 
   test "should create problem" do
     assert_difference('Problem.count') do
-      post :create, problem: { category_id: @problem.category_id, cause: @problem.cause, effect: @problem.effect, kabupaten_id: @problem.kabupaten_id, kelurahan_id: @problem.kelurahan_id, province_id: @problem.province_id, reported_by: @problem.reported_by, summary: @problem.summary, symptom: @problem.symptom, title: @problem.title, urgency: @problem.urgency }
+      post :create, problem: { category_id: @problem.category_id, cause: @problem.cause, effect: @problem.effect, kabupaten_id: @problem.kabupaten_id, kecamatan_id: @problem.kecamatan_id, province_id: @problem.province_id, reported_by: @problem.reported_by, summary: @problem.summary, symptom: @problem.symptom, title: @problem.title, urgency: @problem.urgency }
     end
 
     assert_redirected_to problem_path(assigns(:problem))
@@ -35,7 +35,7 @@ class ProblemsControllerTest < ActionController::TestCase
   end
 
   test "should update problem" do
-    patch :update, id: @problem, problem: { category_id: @problem.category_id, cause: @problem.cause, effect: @problem.effect, kabupaten_id: @problem.kabupaten_id, kelurahan_id: @problem.kelurahan_id, province_id: @problem.province_id, reported_by: @problem.reported_by, summary: @problem.summary, symptom: @problem.symptom, title: @problem.title, urgency: @problem.urgency }
+    patch :update, id: @problem, problem: { category_id: @problem.category_id, cause: @problem.cause, effect: @problem.effect, kabupaten_id: @problem.kabupaten_id, kecamatan_id: @problem.kecamatan_id, province_id: @problem.province_id, reported_by: @problem.reported_by, summary: @problem.summary, symptom: @problem.symptom, title: @problem.title, urgency: @problem.urgency }
     assert_redirected_to problem_path(assigns(:problem))
   end
 
