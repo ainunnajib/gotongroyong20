@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'locations/', controller: 'locations', action: 'provinces', defaults: {format: :json}
+  get 'locations/:province_id/', controller: 'locations', action: 'kabupatens', defaults: {format: :json}
+  get 'locations/:province_id/:kabupaten_id/', controller: 'locations', action: 'kecamatans', defaults: {format: :json}
+
   resources :problems
 
   get 'profiles/:id', :controller => 'profiles', :action => 'show'
