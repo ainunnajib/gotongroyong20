@@ -1,0 +1,39 @@
+%h1 Listing problems
+
+%table
+  %tr
+    %th Title
+    %th Category
+    %th Summary
+    %th Cause
+    %th Symptom
+    %th Effect
+    %th Urgency
+    %th Province
+    %th Kabupaten
+    %th Kelurahan
+    %th Reported by
+    %th
+    %th
+    %th
+
+  - @problems.each do |problem|
+    %tr
+      %td= problem.title
+      %td= problem.category_id
+      %td= problem.summary
+      %td= problem.cause
+      %td= problem.symptom
+      %td= problem.effect
+      %td= problem.urgency
+      %td= problem.province_id
+      %td= problem.kabupaten_id
+      %td= problem.kelurahan_id
+      %td= problem.reported_by
+      %td= link_to 'Show', problem
+      %td= link_to 'Edit', edit_problem_path(problem)
+      %td= link_to 'Destroy', problem, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Problem', new_problem_path

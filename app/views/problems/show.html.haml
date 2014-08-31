@@ -1,0 +1,39 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @problem.title
+%p
+  %b Category:
+  = @problem.category_id
+%p
+  %b Summary:
+  = @problem.summary
+%p
+  %b Cause:
+  = @problem.cause
+%p
+  %b Symptom:
+  = @problem.symptom
+%p
+  %b Effect:
+  = @problem.effect
+%p
+  %b Urgency:
+  = @problem.urgency
+%p
+  %b Province:
+  = @problem.province_id
+%p
+  %b Kabupaten:
+  = @problem.kabupaten_id
+%p
+  %b Kelurahan:
+  = @problem.kelurahan_id
+%p
+  %b Reported by:
+  = @problem.reported_by
+
+= link_to 'Edit', edit_problem_path(@problem)
+\|
+= link_to 'Back', problems_path

@@ -56,3 +56,5 @@ config/secrets.yml
 bower.json
 
 # ============== End from https://github.com/github/gitignore/blob/master/Rails.gitignore ================#
+# Ignore application configuration
+/config/application.yml

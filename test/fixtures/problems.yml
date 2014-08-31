@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  category_id: 1
+  summary: MyText
+  cause: MyText
+  symptom: MyText
+  effect: MyText
+  urgency: 1
+  province_id: 1
+  kabupaten_id: 1
+  kelurahan_id: 1
+  reported_by: 1
+
+two:
+  title: MyString
+  category_id: 1
+  summary: MyText
+  cause: MyText
+  symptom: MyText
+  effect: MyText
+  urgency: 1
+  province_id: 1
+  kabupaten_id: 1
+  kelurahan_id: 1
+  reported_by: 1
