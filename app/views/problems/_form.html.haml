@@ -46,7 +46,7 @@
           'ng-options' => 'kabupaten.name for kabupaten in kabupatens track by kabupaten.id', 'ng-change' => 'getKecamatans(newProblem.province, newProblem.kabupaten)',
           class: 'form-control'}
       .col-md-3{'ng-if' => 'kecamatans.length > 0'}
-        = f.select :kelurahan_id, [], {}, {'ng-model' => 'newProblem.kecamatan',
+        = f.select :kecamatan_id, [], {}, {'ng-model' => 'newProblem.kecamatan',
           'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', class: 'form-control'}
     .form-group
       .col-md-10.col-md-offset-2

@@ -1,39 +1,46 @@
-%h1 Listing problems
+.row
+  .col-md-12
+    %h2 List of problems
 
-%table
-  %tr
-    %th Title
-    %th Category
-    %th Summary
-    %th Cause
-    %th Symptom
-    %th Effect
-    %th Urgency
-    %th Province
-    %th Kabupaten
-    %th Kelurahan
-    %th Reported by
-    %th
-    %th
-    %th
+  .col-md-12
+    .pull-right
+      = link_to new_problem_path, class: 'btn btn-primary' do
+        %span.glyphicon.glyphicon-plus
+        New Problem
 
-  - @problems.each do |problem|
-    %tr
-      %td= problem.title
-      %td= problem.category_id
-      %td= problem.summary
-      %td= problem.cause
-      %td= problem.symptom
-      %td= problem.effect
-      %td= problem.urgency
-      %td= problem.province_id
-      %td= problem.kabupaten_id
-      %td= problem.kelurahan_id
-      %td= problem.reported_by
-      %td= link_to 'Show', problem
-      %td= link_to 'Edit', edit_problem_path(problem)
-      %td= link_to 'Destroy', problem, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  .col-md-12
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Title
+          %th Category
+          %th Summary
+          %th Cause
+          %th Symptom
+          %th Effect
+          %th Urgency
+          %th Province
+          %th Kabupaten
+          %th Kelurahan
+          %th Reported by
+          %th
+          %th
+          %th
 
-%br
-
-= link_to 'New Problem', new_problem_path
+      %tbody
+        - @problems.each do |problem|
+          %tr
+            %td= problem.title
+            %td= problem.category_name
+            %td= problem.summary
+            %td= problem.cause
+            %td= problem.symptom
+            %td= problem.effect
+            %td= problem.urgency_name
+            %td= problem.province.name
+            %td= problem.kabupaten.name
+            %td= problem.kecamatan.name
+            %td= problem.reported_by.name
+            %td= link_to 'Show', problem
+            %td= link_to 'Edit', edit_problem_path(problem)
+            %td= link_to 'Destroy', problem, :method => :delete, :data => { :confirm => 'Are you sure?' }

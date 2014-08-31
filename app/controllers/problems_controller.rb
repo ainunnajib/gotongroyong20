@@ -5,7 +5,7 @@ class ProblemsController < ApplicationController
   # GET /problems
   # GET /problems.json
   def index
-    @problems = Problem.all
+    @problems = Problem.includes([:reported_by, :province, :kabupaten, :kecamatan]).all
   end
 
   # GET /problems/1
