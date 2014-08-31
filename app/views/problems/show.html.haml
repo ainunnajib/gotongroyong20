@@ -32,7 +32,7 @@
   = @problem.kelurahan_id
 %p
   %b Reported by:
-  = @problem.reported_by
+  = @problem.reported_by.name
 
 = link_to 'Edit', edit_problem_path(@problem)
 \|
