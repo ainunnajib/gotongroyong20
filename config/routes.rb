@@ -11,6 +11,10 @@ Rails.application.routes.draw do
       get 'locations/', controller: 'locations', action: 'provinces'
       get 'locations/:province_id/', controller: 'locations', action: 'kabupatens'
       get 'locations/:province_id/:kabupaten_id/', controller: 'locations', action: 'kecamatans'
+
+      namespace :problems do
+        resources :maps, only: [:index]
+      end
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

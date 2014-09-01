@@ -19,4 +19,12 @@ class Problem < ActiveRecord::Base
   def urgency_name
     Problem.all_urgencies[self.urgency][0]
   end
+
+  def latitude
+    return self.kecamatan.latitude
+  end
+
+  def longitude
+    return self.kecamatan.longitude
+  end
 end
