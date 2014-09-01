@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'locations/', controller: 'locations', action: 'provinces', defaults: {format: :json}
-  get 'locations/:province_id/', controller: 'locations', action: 'kabupatens', defaults: {format: :json}
-  get 'locations/:province_id/:kabupaten_id/', controller: 'locations', action: 'kecamatans', defaults: {format: :json}
-
   resources :problems
 
   get 'profiles/:id', :controller => 'profiles', :action => 'show'
@@ -10,6 +6,13 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      get 'locations/', controller: 'locations', action: 'provinces'
+      get 'locations/:province_id/', controller: 'locations', action: 'kabupatens'
+      get 'locations/:province_id/:kabupaten_id/', controller: 'locations', action: 'kecamatans'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
