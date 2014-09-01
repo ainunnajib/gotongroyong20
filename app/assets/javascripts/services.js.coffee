@@ -9,3 +9,5 @@ locationServices.factory "Kecamatans",
 problemServices = angular.module('problemServices', ['ngResource'])
 problemServices.factory "Map",
   ["$resource", ($resource) -> return $resource("/api/v1/problems/maps")]
+problemServices.factory "Problems",
+  ["$resource", ($resource) -> return $resource("/api/v1/problems/details")]

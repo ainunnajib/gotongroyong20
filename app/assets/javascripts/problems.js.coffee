@@ -23,8 +23,8 @@ problemApp.controller('NewProblemController', ['$scope', 'Provinces', 'Kabupaten
     )
 ])
 
-problemApp.controller('IndexProblemController', ['$scope', 'Map',
-  ($scope, Map) ->
+problemApp.controller('IndexProblemController', ['$scope', 'Map', 'Problems',
+  ($scope, Map, Problems) ->
     $scope.initialize = ->
       mapOptions =
         zoom: 4
@@ -58,4 +58,6 @@ problemApp.controller('IndexProblemController', ['$scope', 'Map',
       (data, header) ->
         $scope.initialize()
     )
+
+    $scope.detailedProblems = Problems.query()
 ])

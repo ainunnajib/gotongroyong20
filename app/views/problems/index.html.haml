@@ -36,16 +36,28 @@
             %th
 
         %tbody
-          - @problems.each do |problem|
-            %tr
-              %td=link_to problem.title, problem
-              %td= problem.category_name
-              %td= problem.summary
-              %td= problem.cause
-              %td= problem.symptom
-              %td= problem.effect
-              %td= problem.urgency_name
-              %td= problem.province.name
-              %td= problem.kabupaten.name
-              %td= problem.kecamatan.name
-              %td= problem.reported_by.name
+          %tr{'ng-repeat' => 'problem in detailedProblems'}
+            -#%td= link_to problem.title, problem}}
+            %td
+              %a{'ng-href'=>'{{problem.url}}'}
+                {{problem.title}}
+            %td
+              {{problem.category_name}}
+            %td
+              {{problem.summary}}
+            %td
+              {{problem.cause}}
+            %td
+              {{problem.symptom}}
+            %td
+              {{problem.effect}}
+            %td
+              {{problem.urgency_name}}
+            %td
+              {{problem.province_name}}
+            %td
+              {{problem.kabupaten_name}}
+            %td
+              {{problem.kecamatan_name}}
+            %td
+              {{problem.reported_by_name}}
