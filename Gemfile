@@ -56,3 +56,4 @@ gem 'gon'
 
 gem 'quiet_assets', group: :development
 gem 'geocoder'
+gem 'aws-sdk'

@@ -1,5 +1,57 @@
+:javascript
+  $(function() {
+    $('#problemForm').find("input:file").each(function(i, elem) {
+      var fileInput    = $(elem);
+      var form         = $(fileInput.parents('form:first'));
+      var submitButton = form.find('input[type="submit"]');
+      var progressBar  = $("<div class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'></div>");
+      var barContainer = $("<div class='progress' style='margin-top:10px'></div>").append(progressBar);
+      fileInput.after(barContainer);
+      fileInput.fileupload({
+        fileInput:       fileInput,
+        url:             '#{@s3_direct_post.url}',
+        type:            'POST',
+        autoUpload:       true,
+        formData:         #{@s3_direct_post.fields.to_json.html_safe},
+        paramName:        'file', // S3 does not like nested name fields i.e. name="user[avatar_url]"
+        dataType:         'XML',  // S3 returns XML if success_action_status is set to 201
+        replaceFileInput: false,
+        progressall: function (e, data) {
+          var progress = parseInt(data.loaded / data.total * 100, 10);
+          progressBar.css('width', progress + '%')
+        },
+        start: function (e) {
+          submitButton.prop('disabled', true);
+
+          progressBar.
+            css('width', '0%').
+            text("Loading...");
+        },
+        done: function(e, data) {
+          submitButton.prop('disabled', false);
+          progressBar.text("Uploading done");
+
+          // extract key and generate URL from response
+          var key   = $(data.jqXHR.responseXML).find("Key").text();
+          var url   = '//#{@s3_direct_post.url.host}/' + key;
+
+          // create hidden field
+          var input = $("<input />", { type:'hidden', name: fileInput.attr('name'), value: url })
+          form.append(input);
+        },
+        fail: function(e, data) {
+          submitButton.prop('disabled', false);
+
+          progressBar.
+            css("background", "red").
+            text("Failed");
+        }
+      });
+    });
+  });
+
 %div{'ng-app' => 'problemApp', 'ng-controller' => 'NewProblemController'}
-  = form_for @problem, html: {class:'form-horizontal'} do |f|
+  = form_for @problem, html: {class:'form-horizontal', id:'problemForm'} do |f|
     - if @problem.errors.any?
       #error_explanation
         %h2= "#{pluralize(@problem.errors.count, "error")} prohibited this problem from being saved:"
@@ -11,6 +63,11 @@
       = f.label :title, class: 'col-md-2 control-label'
       .col-md-10
         = f.text_field :title, class: 'form-control'
+
+    .form-group
+      = f.label :image, class: 'col-md-2 control-label'
+      .col-md-3
+        = file_field_tag :image_url, class: 'form-control'
     .form-group
       = f.label :category_id, class: 'col-md-2 control-label'
       .col-md-3
