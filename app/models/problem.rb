@@ -4,6 +4,8 @@ class Problem < ActiveRecord::Base
   belongs_to :kabupaten
   belongs_to :kecamatan
 
+  validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :presence => true
+
   def self.all_categories
     return [["Kesehatan", 0], ["Pendidikan", 1], ["Hukum", 2]]
   end
