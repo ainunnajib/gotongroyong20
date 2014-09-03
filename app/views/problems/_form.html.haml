@@ -18,13 +18,18 @@
         replaceFileInput: false,
         progressall: function (e, data) {
           var progress = parseInt(data.loaded / data.total * 100, 10);
-          progressBar.css('width', progress + '%')
+          progressBar.
+            css('width', progress + '%').
+            attr('aria-valuenow', progress);
         },
         start: function (e) {
           submitButton.prop('disabled', true);
 
           progressBar.
             css('width', '0%').
+            attr('aria-valuenow', 0).
+            removeClass("progress-bar-danger").
+            addClass("progress-bar-success").
             text("Loading...");
         },
         done: function(e, data) {
@@ -43,7 +48,8 @@
           submitButton.prop('disabled', false);
 
           progressBar.
-            css("background", "red").
+            removeClass("progress-bar-success").
+            addClass("progress-bar-danger").
             text("Failed");
         }
       });
