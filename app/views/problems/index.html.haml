@@ -13,7 +13,14 @@
         = link_to new_problem_path, class: 'btn btn-primary' do
           %span.glyphicon.glyphicon-plus
           New Problem
-
+  .row
+    .col-md-12
+      %a.btn.btn-info.btn-sm{"ng-click" => 'fetchPrevPage()', "ng-if" => 'current_page > 1'}
+        %span.glyphicon.glyphicon-chevron-left
+      Page {{current_page}}/{{total_pages}}
+      %a.btn.btn-info.btn-sm{"ng-click" => 'fetchNextPage()', "ng-if" => 'current_page < total_pages'}
+        %span.glyphicon.glyphicon-chevron-right
+  .row
     .col-md-12
       %ul.media-list
         %li.media{'ng-repeat' => 'problem in detailedProblems'}

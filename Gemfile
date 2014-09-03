@@ -57,3 +57,4 @@ gem 'gon'
 gem 'quiet_assets', group: :development
 gem 'geocoder'
 gem 'aws-sdk'
+gem 'will_paginate', '~> 3.0.5'

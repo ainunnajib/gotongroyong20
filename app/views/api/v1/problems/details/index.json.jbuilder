@@ -1,4 +1,6 @@
-json.array!(@problems) do |problem|
+json.current_page @problems.current_page
+json.total_pages @problems.total_pages
+json.problems(@problems) do |problem|
   json.extract! problem, :id, :title, :category_name, :summary, :cause, :symptom, :effect, :urgency_name, :images
   json.province_name problem.province.name
   json.kabupaten_name problem.kabupaten.name

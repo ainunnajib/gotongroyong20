@@ -59,5 +59,19 @@ problemApp.controller('IndexProblemController', ['$scope', 'Map', 'Problems',
         $scope.initialize()
     )
 
-    $scope.detailedProblems = Problems.query()
+    $scope.fetchPrevPage = () ->
+      $scope.fetchProblems($scope.current_page - 1)
+
+    $scope.fetchNextPage = () ->
+      $scope.fetchProblems($scope.current_page + 1)
+
+    $scope.fetchProblems = (page) ->
+      Problems.query({page:page},
+        (data, header) ->
+          $scope.detailedProblems = data.problems
+          $scope.current_page = data.current_page
+          $scope.total_pages = data.total_pages
+        )
+
+    $scope.fetchProblems(1)
 ])
