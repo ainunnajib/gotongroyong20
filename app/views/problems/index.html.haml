@@ -9,55 +9,38 @@
 
   .row
     .col-md-12
-      %h2 List of problems
-
-    .col-md-12
       .pull-right
         = link_to new_problem_path, class: 'btn btn-primary' do
           %span.glyphicon.glyphicon-plus
           New Problem
 
     .col-md-12
-      %table.table.table-striped
-        %thead
-          %tr
-            %th Title
-            %th Category
-            %th Summary
-            %th Cause
-            %th Symptom
-            %th Effect
-            %th Urgency
-            %th Province
-            %th Kabupaten
-            %th Kecamatan
-            %th Reported by
-            %th
-            %th
-
-        %tbody
-          %tr{'ng-repeat' => 'problem in detailedProblems'}
+      %ul.media-list
+        %li.media{'ng-repeat' => 'problem in detailedProblems'}
+          %a.pull-left
+            %img.media-object.thumbnail{'ng-src' => '{{problem.images[0]}}'}
+          .media-body
             -#%td= link_to problem.title, problem}}
-            %td
+            %h4
               %a{'ng-href'=>'{{problem.url}}'}
                 {{problem.title}}
-            %td
-              {{problem.category_name}}
-            %td
-              {{problem.summary}}
-            %td
-              {{problem.cause}}
-            %td
-              {{problem.symptom}}
-            %td
-              {{problem.effect}}
-            %td
-              {{problem.urgency_name}}
-            %td
-              {{problem.province_name}}
-            %td
-              {{problem.kabupaten_name}}
-            %td
-              {{problem.kecamatan_name}}
-            %td
-              {{problem.reported_by_name}}
+            %p.summary
+              "{{problem.summary}}"
+            %b Category:
+            {{problem.category_name}}
+            {{problem.urgency_name}}
+            %br
+            %b Cause:
+            {{problem.cause}}
+            %br
+            %b Symptom:
+            {{problem.symptom}}
+            %br
+            %b Effects:
+            {{problem.effect}}
+            %br
+            %b Lokasi:
+            {{problem.kecamatan_name}}, {{problem.kabupaten_name}}, {{problem.province_name}}
+            %br
+            %b Dilaporkan oleh:
+            {{problem.reported_by_name}}
