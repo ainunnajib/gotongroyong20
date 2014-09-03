@@ -5,7 +5,7 @@
       var form         = $(fileInput.parents('form:first'));
       var submitButton = form.find('input[type="submit"]');
       var progressBar  = $("<div class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'></div>");
-      var barContainer = $("<div class='progress' style='margin-top:10px'></div>").append(progressBar);
+      var barContainer = $("<div class='progress' style='margin-top:10px; display:none'></div>").append(progressBar);
       fileInput.after(barContainer);
       fileInput.fileupload({
         fileInput:       fileInput,
@@ -24,7 +24,7 @@
         },
         start: function (e) {
           submitButton.prop('disabled', true);
-
+          barContainer.show();
           progressBar.
             css('width', '0%').
             attr('aria-valuenow', 0).
@@ -41,8 +41,8 @@
           var url   = '//#{@s3_direct_post.url.host}/' + key;
 
           // create hidden field
-          var input = $("<input />", { type:'hidden', name: fileInput.attr('name'), value: url })
-          form.append(input);
+          //var input = $("<input />", { type:'hidden', name: fileInput.attr(' name'), value: url })
+          fileInput.siblings(":hidden").val(url);
         },
         fail: function(e, data) {
           submitButton.prop('disabled', false);
@@ -60,20 +60,33 @@
   = form_for @problem, html: {class:'form-horizontal', id:'problemForm'} do |f|
     - if @problem.errors.any?
       #error_explanation
-        %h2= "#{pluralize(@problem.errors.count, "error")} prohibited this problem from being saved:"
-        %ul
-          - @problem.errors.full_messages.each do |msg|
-            %li= msg
+        .alert.alert-danger
+          %h4= "#{pluralize(@problem.errors.count, "error")} prohibited this problem from being saved:"
+          %ul
+            - @problem.errors.full_messages.each do |msg|
+              %li= msg
 
     .form-group
       = f.label :title, class: 'col-md-2 control-label'
       .col-md-10
         = f.text_field :title, class: 'form-control'
-
     .form-group
       = f.label :image, class: 'col-md-2 control-label'
-      .col-md-3
-        = file_field_tag :image_url, class: 'form-control'
+      .col-md-10
+        = file_field_tag 'problem[images_dummy][]'
+        = hidden_field_tag 'problem[images][]'
+        %br
+        = file_field_tag 'problem[images_dummy][]'
+        = hidden_field_tag 'problem[images][]'
+        %br
+        = file_field_tag 'problem[images_dummy][]'
+        = hidden_field_tag 'problem[images][]'
+        %br
+        = file_field_tag 'problem[images_dummy][]'
+        = hidden_field_tag 'problem[images][]'
+        %br
+        = file_field_tag 'problem[images_dummy][]'
+        = hidden_field_tag 'problem[images][]'
     .form-group
       = f.label :category_id, class: 'col-md-2 control-label'
       .col-md-3

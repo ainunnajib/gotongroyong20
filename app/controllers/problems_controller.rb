@@ -33,7 +33,10 @@ class ProblemsController < ApplicationController
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
       else
-        format.html { render :new }
+        format.html {
+          @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+          render :new
+        }
         format.json { render json: @problem.errors, status: :unprocessable_entity }
       end
     end
@@ -73,6 +76,7 @@ class ProblemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:title, :category_id, :summary, :cause, :symptom, :effect, :urgency, :province_id, :kabupaten_id, :kecamatan_id, :reported_by)
+      params.require(:problem).permit(:title, :category_id, :summary, :cause, :symptom, :effect, :urgency,
+                                      :province_id, :kabupaten_id, :kecamatan_id, :reported_by, :images => [])
     end
 end
