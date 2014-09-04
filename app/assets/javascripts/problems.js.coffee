@@ -56,8 +56,17 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
 
     prependAll = (data) -> [{name: 'ALL', id: -1}].concat(data)
 
-    $scope.fetchMapProblems = () ->
-      $scope.mapProblems = Map.query({},
+    extractFilter = (filter) ->
+      province_id: if filter.province.id == -1 then undefined else filter.province.id
+      kabupaten_id: if filter.kabupaten.id == -1 then undefined else filter.kabupaten.id
+      kecamatan_id: if filter.kecamatan.id == -1 then undefined else filter.kecamatan.id
+      category_id: if filter.category.id == -1 then undefined  else filter.category.id
+
+    $scope.fetchMapProblems = (filter) ->
+      extractedFilter = extractFilter(filter)
+
+      $scope.mapProblems = Map.query({province_id: extractedFilter.province_id
+        , kabupaten_id: extractedFilter.kabupaten_id , kecamatan_id: extractedFilter.kecamatan_id, category_id: extractedFilter.category_id},
         (data, header) ->
           $scope.initialize()
       )
@@ -69,14 +78,10 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
       $scope.fetchDetailedProblems($scope.current_page + 1, $scope.filter)
 
     $scope.fetchDetailedProblems = (page, filter) ->
-      console.log(filter)
-      province_id = if filter.province.id == -1 then undefined else filter.province.id
-      kabupaten_id = if filter.kabupaten.id == -1 then undefined else filter.kabupaten.id
-      kecamatan_id = if filter.kecamatan.id == -1 then undefined else filter.kecamatan.id
-      category_id = if filter.category.id == -1 then undefined  else filter.category.id
+      extractedFilter = extractFilter(filter)
 
-      Problems.query({page: page, province_id: province_id
-        , kabupaten_id: kabupaten_id , kecamatan_id: kecamatan_id, category_id: category_id},
+      Problems.query({page: page, province_id: extractedFilter.province_id
+        , kabupaten_id: extractedFilter.kabupaten_id , kecamatan_id: extractedFilter.kecamatan_id, category_id: extractedFilter.category_id},
         (data, header) ->
           $scope.detailedProblems = data.problems
           $scope.current_page = data.current_page
@@ -84,6 +89,7 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
         )
 
     $scope.filterProblems = (filter) ->
+      $scope.fetchMapProblems(filter)
       $scope.fetchDetailedProblems(1, filter)
 
     $scope.getKabupatens = (province) ->
@@ -119,6 +125,6 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
       kecamatan: {id: -1} #all
       category: {id: -1} #all
 
-    $scope.fetchMapProblems()
+    $scope.fetchMapProblems($scope.filter)
     $scope.fetchDetailedProblems(1, $scope.filter)
 ])
