@@ -7,10 +7,24 @@
     .col-md-8
       #map-canvas
     .col-md-4
-      %h4 Provinces
-      %div{'ng-repeat' => 'province in provinces', style: 'float:left; margin-left: 10px'}
-        %input{type: "checkbox", name:'province', value:'{{province.id}}'}
-        {{province.name}}
+      %h4 Filter Lokasi
+      .row
+        .col-md-4{class: 'col-md-2 control-label'} Provinsi
+        .col-md-8
+          = select_tag :province_id, {}, {'ng-model' => 'filter.province',
+            'ng-options' => 'province.name for province in provinces track by province.id', 'ng-change' => 'getKabupatens(filter.province)',
+            class: 'form-control'}
+      .row.location-filter{'ng-if' => 'kabupatens.length > 0'}
+        .col-md-4{class: 'col-md-2 control-label'} Kabupaten
+        .col-md-8
+          = select_tag :kabupaten_id, {}, {'ng-model' => 'filter.kabupaten',
+            'ng-options' => 'kabupaten.name for kabupaten in kabupatens track by kabupaten.id', 'ng-change' => 'getKecamatans(filter.province, filter.kabupaten)',
+            class: 'form-control'}
+      .row.location-filter{'ng-if' => 'kecamatans.length > 0'}
+        .col-md-4{class: 'col-md-2 control-label'} Kecamatan
+        .col-md-8
+          = select_tag :kecamatan_id, {}, {'ng-model' => 'filter.kecamatan',
+            'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', class: 'form-control'}
   .row
     .col-md-12
       .pull-right

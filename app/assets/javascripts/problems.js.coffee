@@ -23,8 +23,8 @@ problemApp.controller('NewProblemController', ['$scope', 'Provinces', 'Kabupaten
     )
 ])
 
-problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Map', 'Problems',
-  ($scope, Provinces, Map, Problems) ->
+problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupatens', 'Kecamatans', 'Map', 'Problems',
+  ($scope, Provinces, Kabupatens, Kecamatans, Map, Problems) ->
     $scope.initialize = ->
       mapOptions =
         zoom: 4
@@ -71,6 +71,21 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Map', '
           $scope.detailedProblems = data.problems
           $scope.current_page = data.current_page
           $scope.total_pages = data.total_pages
+        )
+
+    $scope.getKabupatens = (province) ->
+      if province
+        $scope.kabupatens = []
+        $scope.kecamatans = []
+        Kabupatens.query({province_id: province.id},
+          (data, header) -> $scope.kabupatens = data
+        )
+
+    $scope.getKecamatans = (province, kabupaten) ->
+      if kabupaten and province
+        $scope.kecamatans = []
+        Kecamatans.query({province_id: province.id, kabupaten_id: kabupaten.id},
+          (data, header) -> $scope.kecamatans = data
         )
 
     $scope.provinces = Provinces.query()
