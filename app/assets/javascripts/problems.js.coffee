@@ -62,12 +62,12 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
     )
 
     $scope.fetchPrevPage = () ->
-      $scope.fetchProblems($scope.current_page - 1, $scope.filter)
+      $scope.fetchDetailedProblems($scope.current_page - 1, $scope.filter)
 
     $scope.fetchNextPage = () ->
-      $scope.fetchProblems($scope.current_page + 1, $scope.filter)
+      $scope.fetchDetailedProblems($scope.current_page + 1, $scope.filter)
 
-    $scope.fetchProblems = (page, filter) ->
+    $scope.fetchDetailedProblems = (page, filter) ->
       console.log(filter)
       province_id = if filter.province.id == -1 then undefined else filter.province.id
       kabupaten_id = if filter.kabupaten.id == -1 then undefined else filter.kabupaten.id
@@ -83,7 +83,7 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
         )
 
     $scope.filterProblems = (filter) ->
-      $scope.fetchProblems(1, filter)
+      $scope.fetchDetailedProblems(1, filter)
 
     $scope.getKabupatens = (province) ->
       if province
@@ -118,5 +118,5 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
       kecamatan: {id: -1} #all
       category: {id: -1} #all
 
-    $scope.fetchProblems(1, $scope.filter)
+    $scope.fetchDetailedProblems(1, $scope.filter)
 ])
