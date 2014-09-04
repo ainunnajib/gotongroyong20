@@ -56,10 +56,11 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
 
     prependAll = (data) -> [{name: 'ALL', id: -1}].concat(data)
 
-    $scope.mapProblems = Map.query({},
-      (data, header) ->
-        $scope.initialize()
-    )
+    $scope.fetchMapProblems = () ->
+      $scope.mapProblems = Map.query({},
+        (data, header) ->
+          $scope.initialize()
+      )
 
     $scope.fetchPrevPage = () ->
       $scope.fetchDetailedProblems($scope.current_page - 1, $scope.filter)
@@ -118,5 +119,6 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
       kecamatan: {id: -1} #all
       category: {id: -1} #all
 
+    $scope.fetchMapProblems()
     $scope.fetchDetailedProblems(1, $scope.filter)
 ])
