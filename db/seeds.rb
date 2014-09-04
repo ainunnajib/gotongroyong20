@@ -9,6 +9,7 @@
 Province.delete_all
 Kabupaten.delete_all
 Kecamatan.delete_all
+Kelurahan.delete_all
 
 CONN = ActiveRecord::Base.connection
 
@@ -54,6 +55,20 @@ def populate_kecamatans
   end
 end
 
+def populate_kelurahans
+  inserts = []
+  File.open("db/kelurahans.txt", "r").each_line do |line|
+    kecamatan_id, id, name = line.split("|").map{|l| l.strip.gsub("'", "''")}
+    inserts.push("(#{id}, '#{name}', #{kecamatan_id})")
+  end
+
+  slices = inserts.each_slice(100).to_a
+  slices.each do |slice|
+    sql = "INSERT INTO kelurahans(id, name, kecamatan_id) VALUES #{slice.join(',')}"
+    CONN.execute(sql)
+  end
+end
+
 puts "Populating provinces..."
 populate_provinces
 
@@ -62,3 +77,6 @@ populate_kabupatens
 
 puts "Populating kecamatans..."
 populate_kecamatans
+
+puts "Populating kelurahans..."
+populate_kelurahans
