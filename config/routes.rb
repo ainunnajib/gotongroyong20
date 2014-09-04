@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       namespace :problems do
         resources :maps, only: [:index]
         resources :details, only: [:index]
+        resources :categories, only: [:index]
       end
     end
   end

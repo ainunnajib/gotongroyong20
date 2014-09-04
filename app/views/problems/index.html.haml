@@ -7,7 +7,6 @@
     .col-md-8
       #map-canvas
     .col-md-4
-      %h4 Filter Lokasi
       .row
         .col-md-4{class: 'col-md-2 control-label'} Provinsi
         .col-md-8
@@ -25,6 +24,17 @@
         .col-md-8
           = select_tag :kecamatan_id, {}, {'ng-model' => 'filter.kecamatan',
             'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', class: 'form-control'}
+      .row.location-filter
+        .col-md-4{class: 'col-md-2 control-label'} Kategori
+        .col-md-8
+          = select_tag :category_id, {}, {'ng-model' => 'filter.category',
+            'ng-options' => 'category.name for category in categories track by category.id',
+            class: 'form-control'}
+
+      .row.location-filter
+        .col-md-6.col-md-offset-4
+          = button_tag :Filter, 'class' => 'btn btn-primary', 'ng-click' => 'filterProblems(filter)'
+
   .row
     .col-md-12
       .pull-right

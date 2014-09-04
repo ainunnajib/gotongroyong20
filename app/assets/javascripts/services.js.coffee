@@ -15,3 +15,5 @@ problemServices.factory "Problems",
       'query': {method:'GET', isArray:false},
     }
   )]
+problemServices.factory "Categories",
+  ["$resource", ($resource) -> return $resource("/api/v1/problems/categories")]
