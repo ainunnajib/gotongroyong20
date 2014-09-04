@@ -42,7 +42,7 @@
           %span.glyphicon.glyphicon-plus
           New Problem
   .row
-    .col-md-12
+    .col-md-12{'ng-if' => 'total_pages > 1'}
       %a.btn.btn-info.btn-sm{"ng-click" => 'fetchPrevPage()', "ng-if" => 'current_page > 1'}
         %span.glyphicon.glyphicon-chevron-left
       Page {{current_page}}/{{total_pages}}
