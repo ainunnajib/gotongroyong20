@@ -5,6 +5,7 @@ class Problem < ActiveRecord::Base
   belongs_to :kecamatan
 
   validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :presence => true
+  before_save :remove_empty_images
 
   def self.all_categories
     return [["Kesehatan", 0], ["Pendidikan", 1], ["Hukum", 2]]
@@ -28,5 +29,14 @@ class Problem < ActiveRecord::Base
 
   def longitude
     return self.kecamatan.longitude
+  end
+
+  def remove_empty_images
+    new_images = self.images.inject([]) do |res, image|
+      if image and image.length > 0
+        res.append(image)
+      end
+    end
+    self.images = new_images
   end
 end
