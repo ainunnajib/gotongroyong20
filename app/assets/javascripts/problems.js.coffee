@@ -32,7 +32,7 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
 
       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions)
 
-      for problem in $scope.problems
+      for problem in $scope.mapProblems
         marker = new google.maps.Marker(
           map: map
           draggable: true
@@ -56,7 +56,7 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
 
     prependAll = (data) -> [{name: 'ALL', id: -1}].concat(data)
 
-    $scope.problems = Map.query({},
+    $scope.mapProblems = Map.query({},
       (data, header) ->
         $scope.initialize()
     )
