@@ -5,6 +5,8 @@ locationServices.factory "Kabupatens",
   ["$resource", ($resource) -> return $resource("/api/v1/locations/:province_id")]
 locationServices.factory "Kecamatans",
   ["$resource", ($resource) -> return $resource("/api/v1/locations/:province_id/:kabupaten_id")]
+locationServices.factory "Kelurahans",
+  ["$resource", ($resource) -> return $resource("/api/v1/locations/:province_id/:kabupaten_id/:kecamatan_id")]
 
 problemServices = angular.module('problemServices', ['ngResource'])
 problemServices.factory "Map",

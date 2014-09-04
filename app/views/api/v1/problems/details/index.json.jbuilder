@@ -5,6 +5,7 @@ json.problems(@problems) do |problem|
   json.province_name problem.province.name
   json.kabupaten_name problem.kabupaten.name
   json.kecamatan_name problem.kecamatan.name
+  json.kelurahan_name problem.kelurahan.name
   json.reported_by_name problem.reported_by.name
   json.url problem_url(problem, format: :html)
 end

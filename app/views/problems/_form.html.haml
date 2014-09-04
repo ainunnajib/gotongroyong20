@@ -113,17 +113,21 @@
         = f.select :urgency, Problem.all_urgencies, {}, {class: 'form-control'}
     .form-group
       = f.label :lokasi, class: 'col-sm-2 control-label'
-      .col-sm-3
+      .col-sm-2
         = f.select :province_id, [], {}, {'ng-model' => 'newProblem.province',
           'ng-options' => 'province.name for province in provinces track by province.id', 'ng-change' => 'getKabupatens(newProblem.province)',
           class: 'form-control'}
-      .col-sm-3{'ng-if' => 'kabupatens.length > 0'}
+      .col-sm-2{'ng-if' => 'kabupatens.length > 0'}
         = f.select :kabupaten_id, [], {}, {'ng-model' => 'newProblem.kabupaten',
           'ng-options' => 'kabupaten.name for kabupaten in kabupatens track by kabupaten.id', 'ng-change' => 'getKecamatans(newProblem.province, newProblem.kabupaten)',
           class: 'form-control'}
-      .col-sm-3{'ng-if' => 'kecamatans.length > 0'}
+      .col-sm-2{'ng-if' => 'kecamatans.length > 0'}
         = f.select :kecamatan_id, [], {}, {'ng-model' => 'newProblem.kecamatan',
-          'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', class: 'form-control'}
+          'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', 'ng-change' => 'getKelurahans(newProblem.province, newProblem.kabupaten, newProblem.kecamatan)',
+          class: 'form-control'}
+      .col-sm-2{'ng-if' => 'kelurahans.length > 0'}
+        = f.select :kelurahan_id, [], {}, {'ng-model' => 'newProblem.kelurahan',
+          'ng-options' => 'kelurahan.name for kelurahan in kelurahans track by kelurahan.id', class: 'form-control'}
     .form-group
       .col-sm-10.col-sm-offset-2
         = f.submit 'Save', class: 'btn btn-primary'

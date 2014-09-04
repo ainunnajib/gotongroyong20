@@ -77,6 +77,6 @@ class ProblemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
       params.require(:problem).permit(:title, :category_id, :summary, :cause, :symptom, :effect, :urgency,
-                                      :province_id, :kabupaten_id, :kecamatan_id, :reported_by, :images => [])
+                                      :province_id, :kabupaten_id, :kecamatan_id, :kelurahan_id, :reported_by, :images => [])
     end
 end

@@ -23,7 +23,13 @@
         .col-sm-4{class: 'col-sm-2 control-label'} Kecamatan
         .col-sm-8
           = select_tag :kecamatan_id, {}, {'ng-model' => 'filter.kecamatan',
-            'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', class: 'form-control'}
+            'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', 'ng-change' => 'getKelurahans(filter.province, filter.kabupaten, filter.kecamatan)',
+            class: 'form-control'}
+      .row.location-filter
+        .col-sm-4{class: 'col-sm-2 control-label'} Kelurahan
+        .col-sm-8
+          = select_tag :kecamatan_id, {}, {'ng-model' => 'filter.kelurahan',
+            'ng-options' => 'kelurahan.name for kelurahan in kelurahans track by kelurahan.id', class: 'form-control'}
       .row.location-filter
         .col-sm-4{class: 'col-sm-2 control-label'} Kategori
         .col-sm-8
@@ -76,7 +82,7 @@
             {{problem.effect}}
             %br
             %b Lokasi:
-            {{problem.kecamatan_name}}, {{problem.kabupaten_name}}, {{problem.province_name}}
+            {{problem.kelurahan_name}}, {{problem.kecamatan_name}}, {{problem.kabupaten_name}}, {{problem.province_name}}
             %br
             %b Dilaporkan oleh:
             {{problem.reported_by_name}}

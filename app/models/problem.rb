@@ -3,6 +3,7 @@ class Problem < ActiveRecord::Base
   belongs_to :province
   belongs_to :kabupaten
   belongs_to :kecamatan
+  belongs_to :kelurahan
 
   validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :presence => true
   before_save :remove_empty_images
@@ -24,11 +25,11 @@ class Problem < ActiveRecord::Base
   end
 
   def latitude
-    return self.kecamatan.latitude
+    return self.kelurahan.latitude
   end
 
   def longitude
-    return self.kecamatan.longitude
+    return self.kelurahan.longitude
   end
 
   def remove_empty_images
