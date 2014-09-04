@@ -114,6 +114,8 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
     Provinces.query({},
       (data, header) ->
         $scope.provinces = prependAll(data)
+        $scope.kabupatens = prependAll([])
+        $scope.kecamatans = prependAll([])
     )
     Categories.query({},
       (data, header) ->

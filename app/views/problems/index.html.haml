@@ -13,13 +13,13 @@
           = select_tag :province_id, {}, {'ng-model' => 'filter.province',
             'ng-options' => 'province.name for province in provinces track by province.id', 'ng-change' => 'getKabupatens(filter.province)',
             class: 'form-control'}
-      .row.location-filter{'ng-if' => 'kabupatens.length > 0'}
+      .row.location-filter
         .col-md-4{class: 'col-md-2 control-label'} Kabupaten
         .col-md-8
           = select_tag :kabupaten_id, {}, {'ng-model' => 'filter.kabupaten',
             'ng-options' => 'kabupaten.name for kabupaten in kabupatens track by kabupaten.id', 'ng-change' => 'getKecamatans(filter.province, filter.kabupaten)',
             class: 'form-control'}
-      .row.location-filter{'ng-if' => 'kecamatans.length > 0'}
+      .row.location-filter
         .col-md-4{class: 'col-md-2 control-label'} Kecamatan
         .col-md-8
           = select_tag :kecamatan_id, {}, {'ng-model' => 'filter.kecamatan',
