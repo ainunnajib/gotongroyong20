@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'locations/', controller: 'locations', action: 'provinces'
       get 'locations/:province_id/', controller: 'locations', action: 'kabupatens'
       get 'locations/:province_id/:kabupaten_id/', controller: 'locations', action: 'kecamatans'
+      get 'locations/:province_id/:kabupaten_id/:kecamatan_id', controller: 'locations', action: 'kelurahans'
 
       namespace :problems do
         resources :maps, only: [:index]

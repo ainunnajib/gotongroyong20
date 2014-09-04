@@ -12,6 +12,10 @@ module Api
       def kecamatans
         @kecamatans = Kecamatan.where(kabupaten_id: params[:kabupaten_id])
       end
+
+      def kelurahans
+        @kelurahans = Kelurahan.where(kecamatan_id: params[:kecamatan_id])
+      end
     end
   end
 end
