@@ -9,9 +9,18 @@
   margin-bottom: 20px;
 }
 
-.thumbnail {
-  width: 200px;
-  margin-top: 10px;
+@media (min-width: 768px) {
+  .thumbnail {
+    width: 200px;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .thumbnail {
+    width: 100px;
+    margin-top: 10px;
+  }
 }
 
 .summary {
