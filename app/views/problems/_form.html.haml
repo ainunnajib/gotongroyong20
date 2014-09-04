@@ -67,12 +67,12 @@
               %li= msg
 
     .form-group
-      = f.label :title, class: 'col-md-2 control-label'
-      .col-md-10
+      = f.label :title, class: 'col-sm-2 control-label'
+      .col-sm-10
         = f.text_field :title, class: 'form-control'
     .form-group
-      = f.label :image, class: 'col-md-2 control-label'
-      .col-md-10
+      = f.label :image, class: 'col-sm-2 control-label'
+      .col-sm-10
         = file_field_tag 'problem[images_dummy][]'
         = hidden_field_tag 'problem[images][]'
         %br
@@ -88,42 +88,42 @@
         = file_field_tag 'problem[images_dummy][]'
         = hidden_field_tag 'problem[images][]'
     .form-group
-      = f.label :category_id, class: 'col-md-2 control-label'
-      .col-md-3
+      = f.label :category_id, class: 'col-sm-2 control-label'
+      .col-sm-3
         = f.select :category_id, Problem.all_categories, {}, {class: 'form-control'}
     .form-group
-      = f.label :summary, class: 'col-md-2 control-label'
-      .col-md-10
+      = f.label :summary, class: 'col-sm-2 control-label'
+      .col-sm-10
         = f.text_area :summary, class: 'form-control'
     .form-group
-      = f.label :cause, class: 'col-md-2 control-label'
-      .col-md-10
+      = f.label :cause, class: 'col-sm-2 control-label'
+      .col-sm-10
         = f.text_area :cause, class: 'form-control'
     .form-group
-      = f.label :symptom, class: 'col-md-2 control-label'
-      .col-md-10
+      = f.label :symptom, class: 'col-sm-2 control-label'
+      .col-sm-10
         = f.text_area :symptom, class: 'form-control'
     .form-group
-      = f.label :effect, class: 'col-md-2 control-label'
-      .col-md-10
+      = f.label :effect, class: 'col-sm-2 control-label'
+      .col-sm-10
         = f.text_area :effect, class: 'form-control'
     .form-group
-      = f.label :urgency, class: 'col-md-2 control-label'
-      .col-md-2
+      = f.label :urgency, class: 'col-sm-2 control-label'
+      .col-sm-2
         = f.select :urgency, Problem.all_urgencies, {}, {class: 'form-control'}
     .form-group
-      = f.label :lokasi, class: 'col-md-2 control-label'
-      .col-md-3
+      = f.label :lokasi, class: 'col-sm-2 control-label'
+      .col-sm-3
         = f.select :province_id, [], {}, {'ng-model' => 'newProblem.province',
           'ng-options' => 'province.name for province in provinces track by province.id', 'ng-change' => 'getKabupatens(newProblem.province)',
           class: 'form-control'}
-      .col-md-3{'ng-if' => 'kabupatens.length > 0'}
+      .col-sm-3{'ng-if' => 'kabupatens.length > 0'}
         = f.select :kabupaten_id, [], {}, {'ng-model' => 'newProblem.kabupaten',
           'ng-options' => 'kabupaten.name for kabupaten in kabupatens track by kabupaten.id', 'ng-change' => 'getKecamatans(newProblem.province, newProblem.kabupaten)',
           class: 'form-control'}
-      .col-md-3{'ng-if' => 'kecamatans.length > 0'}
+      .col-sm-3{'ng-if' => 'kecamatans.length > 0'}
         = f.select :kecamatan_id, [], {}, {'ng-model' => 'newProblem.kecamatan',
           'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', class: 'form-control'}
     .form-group
-      .col-md-10.col-md-offset-2
+      .col-sm-10.col-sm-offset-2
         = f.submit 'Save', class: 'btn btn-primary'
