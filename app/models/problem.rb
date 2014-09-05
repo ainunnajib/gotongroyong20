@@ -8,6 +8,8 @@ class Problem < ActiveRecord::Base
   validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :presence => true
   before_save :remove_empty_images
 
+  acts_as_votable
+
   def self.all_categories
     return [["Kesehatan", 0], ["Pendidikan", 1], ["Hukum", 2]]
   end

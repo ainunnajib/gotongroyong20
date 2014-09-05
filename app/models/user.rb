@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter]
   validates :name, presence: true
 
+  acts_as_voter
+
   def self.from_omniauth(auth)
     logger.info(auth)
 
