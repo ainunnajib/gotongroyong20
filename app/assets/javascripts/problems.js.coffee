@@ -32,8 +32,8 @@ problemApp.controller('NewProblemController', ['$scope', 'Provinces', 'Kabupaten
         )
 ])
 
-problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupatens', 'Kecamatans', 'Kelurahans', 'Map', 'Problems', 'Categories',
-  ($scope, Provinces, Kabupatens, Kecamatans, Kelurahans, Map, Problems, Categories) ->
+problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinces', 'Kabupatens', 'Kecamatans', 'Kelurahans', 'Map', 'Problems', 'Categories',
+  ($scope, $location, Provinces, Kabupatens, Kecamatans, Kelurahans, Map, Problems, Categories) ->
     $scope.initialize = ->
       mapOptions =
         zoom: 4
@@ -72,6 +72,18 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
       kelurahan_id: if filter.kelurahan.id == -1 then undefined else filter.kelurahan.id
       category_id: if filter.category.id == -1 then undefined  else filter.category.id
 
+    $scope.updateUrl = (page, filter) ->
+      extractedFilter = extractFilter(filter)
+      url_params = {}
+      for k, v of extractedFilter
+        if v == undefined
+          $location.search(k, null)
+        else
+          url_params[k] = v
+      if page != 1
+        url_params['page'] = page
+      $location.search(url_params)
+
     $scope.fetchMapProblems = (filter) ->
       extractedFilter = extractFilter(filter)
 
@@ -83,10 +95,10 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
       )
 
     $scope.fetchPrevPage = () ->
-      $scope.fetchDetailedProblems($scope.current_page - 1, $scope.filter)
+      $scope.updateUrl($scope.current_page - 1, $scope.filter)
 
     $scope.fetchNextPage = () ->
-      $scope.fetchDetailedProblems($scope.current_page + 1, $scope.filter)
+      $scope.updateUrl($scope.current_page + 1, $scope.filter)
 
     $scope.fetchDetailedProblems = (page, filter) ->
       extractedFilter = extractFilter(filter)
@@ -101,8 +113,7 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
         )
 
     $scope.filterProblems = (filter) ->
-      $scope.fetchMapProblems(filter)
-      $scope.fetchDetailedProblems(1, filter)
+      $scope.updateUrl(1, filter)
 
     $scope.getKabupatens = (province) ->
       if province
@@ -152,6 +163,27 @@ problemApp.controller('IndexProblemController', ['$scope', 'Provinces', 'Kabupat
       kelurahan: {id: -1} #all
       category: {id: -1} #all
 
-    $scope.fetchMapProblems($scope.filter)
-    $scope.fetchDetailedProblems(1, $scope.filter)
+    $scope.current_page = 1
+
+    $scope.$on('$locationChangeSuccess',
+      (event) ->
+        params = $location.search()
+        if params.page
+          $scope.current_page = parseInt(params.page)
+        else
+          $scope.current_page = 1
+        if params.province_id
+          $scope.filter.province.id = parseInt(params.province_id)
+          $scope.getKabupatens($scope.filter.province)
+        if params.kabupaten_id
+          $scope.filter.kabupaten.id = parseInt(params.kabupaten_id)
+          $scope.getKecamatans($scope.filter.province, $scope.filter.kabupaten)
+        if params.kecamatan_id
+          $scope.filter.kecamatan.id = parseInt(params.kecamatan_id)
+          $scope.getKelurahans($scope.filter.province, $scope.filter.kabupaten, $scope.filter.kecamatan)
+        if params.kelurahan_id then $scope.filter.kelurahan.id = parseInt(params.kelurahan_id)
+
+        $scope.fetchMapProblems($scope.filter)
+        $scope.fetchDetailedProblems($scope.current_page, $scope.filter)
+      )
 ])
