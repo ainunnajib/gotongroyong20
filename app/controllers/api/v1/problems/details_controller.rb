@@ -8,4 +8,8 @@ class Api::V1::Problems::DetailsController < ApplicationController
     @problems = @problems.where(kelurahan_id: params[:kelurahan_id].to_i) if params[:kelurahan_id]
     @problems = @problems.where(category_id: params[:category_id].to_i) if params[:category_id]
   end
+
+  def show
+    @problem = Problem.includes([:reported_by, :province, :kabupaten, :kecamatan, :kelurahan]).find(params[:id])
+  end
 end

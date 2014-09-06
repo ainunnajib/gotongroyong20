@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-problemApp = angular.module('problemApp', ['locationServices', 'problemServices'])
+problemApp = angular.module('problemApp', ['locationServices', 'problemServices', 'voteServices'])
 problemApp.controller('NewProblemController', ['$scope', 'Provinces', 'Kabupatens', 'Kecamatans', 'Kelurahans',
   ($scope, Provinces, Kabupatens, Kecamatans, Kelurahans) ->
     $scope.provinces = Provinces.query()
@@ -186,4 +186,22 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
         $scope.fetchMapProblems($scope.filter)
         $scope.fetchDetailedProblems($scope.current_page, $scope.filter)
       )
+])
+
+problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'Problems', 'Categories', 'ProblemVotes',
+  ($scope, $location, Map, Problems, Categories, ProblemVotes) ->
+    $scope.vote = ProblemVotes.query({problem_id: gon.problem_id})
+    $scope.problem = Problems.get({id: gon.problem_id})
+
+    $scope.vote_up = () ->
+      v = new ProblemVotes({type: 'up'})
+      v.$save({problem_id: gon.problem_id}, (data, header) -> $scope.vote = data)
+
+    $scope.vote_down = () ->
+      v = new ProblemVotes({type: 'down'})
+      v.$save({problem_id: gon.problem_id}, (data, header) -> $scope.vote = data)
+
+    $scope.unvote = () ->
+      v = new ProblemVotes({type: 'unvote'})
+      v.$save({problem_id: gon.problem_id}, (data, header) -> $scope.vote = data)
 ])

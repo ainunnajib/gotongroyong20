@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  concern :votable do
+    resources :votes, only: [:index, :create]
+  end
+
   resources :problems
 
   get 'profiles/:id', :controller => 'profiles', :action => 'show'
@@ -15,7 +19,7 @@ Rails.application.routes.draw do
 
       namespace :problems do
         resources :maps, only: [:index]
-        resources :details, only: [:index]
+        resources :details, only: [:index, :show], concerns: :votable, defaults: {:model_name => 'Problem'}
         resources :categories, only: [:index]
       end
     end

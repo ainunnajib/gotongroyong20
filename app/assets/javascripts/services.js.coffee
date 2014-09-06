@@ -12,10 +12,18 @@ problemServices = angular.module('problemServices', ['ngResource'])
 problemServices.factory "Map",
   ["$resource", ($resource) -> return $resource("/api/v1/problems/maps")]
 problemServices.factory "Problems",
-  ["$resource", ($resource) -> return $resource("/api/v1/problems/details", {},
+  ["$resource", ($resource) -> return $resource("/api/v1/problems/details/:id", {},
     {
       'query': {method:'GET', isArray:false},
     }
   )]
 problemServices.factory "Categories",
   ["$resource", ($resource) -> return $resource("/api/v1/problems/categories")]
+
+voteServices = angular.module('voteServices', ['ngResource'])
+voteServices.factory "ProblemVotes",
+  ["$resource", ($resource) -> return $resource("/api/v1/problems/details/:problem_id/votes/", {},
+    {
+      'query': {method:'GET', isArray:false},
+    }
+  )]

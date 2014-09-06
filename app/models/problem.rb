@@ -34,6 +34,22 @@ class Problem < ActiveRecord::Base
     return self.kelurahan.longitude
   end
 
+  def province_name
+    return self.province.name
+  end
+
+  def kabupaten_name
+    return self.kabupaten.name
+  end
+
+  def kecamatan_name
+    return self.kecamatan.name
+  end
+
+  def kelurahan_name
+    return self.kelurahan.name
+  end
+
   def remove_empty_images
     new_images = self.images.inject([]) do |res, image|
       if image and image.length > 0
