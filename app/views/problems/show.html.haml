@@ -1,61 +1,60 @@
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController'}
-  .col-md-8
-    .col-md-12
-      .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}
-        .thumb{'ng-if' => "vote.my_vote_status == 'quo'"}
-          =image_tag("up_inactive.png", 'ng-click' => 'vote_up()', mouseover: "up_hover.png", size: "30x35")
-          %br
-          .point
-            {{vote.up_vote - vote.down_vote}}
-          =image_tag("down_inactive.png", 'ng-click' =>'vote_down()', size: "30x35", style: 'margin-top:10px')
-        .thumb{'ng-if' => "vote.my_vote_status == 'up'"}
-          =image_tag("up_pressed.png", mouseover: "up_hover.png", size: "30x35", 'ng-click' => 'unvote()')
-          %br
-          .point
-            {{vote.up_vote - vote.down_vote}}
-          =image_tag("down_inactive.png", 'ng-click' => 'vote_down()', size: "30x35", style: 'margin-top:10px')
-        .thumb{'ng-if' => "vote.my_vote_status == 'down'"}
-          =image_tag("up_inactive.png", 'ng-click' => 'vote_up()', mouseover: "up_hover.png", size: "30x35")
-          %br
-          .point
-            {{vote.up_vote - vote.down_vote}}
-          =image_tag("down_pressed.png", size: "30x35", style: 'margin-top:10px', 'ng-click' => 'unvote()')
+  .col-sm-9
+    .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}
+      .thumb{'ng-if' => "vote.my_vote_status == 'quo'"}
+        =image_tag("up_inactive.png", 'ng-click' => 'vote_up()', mouseover: "up_hover.png", size: "30x35")
+        %br
+        .point
+          {{vote.up_vote - vote.down_vote}}
+        =image_tag("down_inactive.png", 'ng-click' =>'vote_down()', size: "30x35", style: 'margin-top:10px')
+      .thumb{'ng-if' => "vote.my_vote_status == 'up'"}
+        =image_tag("up_pressed.png", mouseover: "up_hover.png", size: "30x35", 'ng-click' => 'unvote()')
+        %br
+        .point
+          {{vote.up_vote - vote.down_vote}}
+        =image_tag("down_inactive.png", 'ng-click' => 'vote_down()', size: "30x35", style: 'margin-top:10px')
+      .thumb{'ng-if' => "vote.my_vote_status == 'down'"}
+        =image_tag("up_inactive.png", 'ng-click' => 'vote_up()', mouseover: "up_hover.png", size: "30x35")
+        %br
+        .point
+          {{vote.up_vote - vote.down_vote}}
+        =image_tag("down_pressed.png", size: "30x35", style: 'margin-top:10px', 'ng-click' => 'unvote()')
 
-      %h4
-        {{problem.title}}
-      %br
-      %b Category:
-      {{problem.category_name}}
-      %br
-      %b Summary:
-      {{problem.summary}}
-      %br
-      %b Cause:
-      {{problem.cause}}
-      %br
-      %b Symptom:
-      {{problem.symptom}}
-      %br
-      %b Effect:
-      {{problem.effect}}
-      %br
-      %b Urgency:
-      {{problem.urgency_name}}
-      %br
-      %b Province:
-      {{problem.province_name}}
-      %br
-      %b Kabupaten:
-      {{problem.kabupaten_name}}
-      %br
-      %b Kecamatan:
-      {{problem.kecamatan_name}}
-      %br
-      %b Kelurahan:
-      {{problem.kelurahan_name}}
-      %br
-      %b Reported by:
-      {{problem.reported_by.name}}
-
-= link_to 'Edit', edit_problem_path(params[:id]), class: 'btn btn-info'
-= link_to 'Destroy',problem_path(params[:id]), :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger'
+    %h4
+      {{problem.title}}
+    %br
+    %b Summary:
+    {{problem.summary}}
+    %br
+    %b Cause:
+    {{problem.cause}}
+    %br
+    %b Symptom:
+    {{problem.symptom}}
+    %br
+    %b Effect:
+    {{problem.effect}}
+    %br
+  .col-sm-3.well
+    %b Category:
+    {{problem.category_name}}
+    %br
+    %b Province:
+    {{problem.province_name}}
+    %br
+    %b Kabupaten:
+    {{problem.kabupaten_name}}
+    %br
+    %b Kecamatan:
+    {{problem.kecamatan_name}}
+    %br
+    %b Kelurahan:
+    {{problem.kelurahan_name}}
+    %br
+    %b Reported by:
+    {{problem.reported_by.name}}
+    %br
+    %b Urgency:
+    {{problem.urgency_name}}
+    %br
+    = link_to 'Edit', edit_problem_path(params[:id]), class: 'btn btn-info', style: 'margin-top:10px'
