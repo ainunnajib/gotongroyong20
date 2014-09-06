@@ -35,6 +35,27 @@
     %b Effect:
     {{problem.effect}}
     %br
+
+    %hr
+    %ul.nav.nav-pills
+      %li{'ng-class' => '{active: selected_tab == 0}'}
+        %a{'ng-click' => 'showFindings()', href: '#'} Findings
+      %li{'ng-class' => '{active: selected_tab == 1}'}
+        %a{'ng-click' => 'showBrainstorms()', href: '#'} Brainstorms
+      %li{'ng-class' => '{active: selected_tab == 2}'}
+        %a{'ng-click' => 'showVolunteers()', href: '#'} Volunteers
+      %li{'ng-class' => '{active: selected_tab == 3}'}
+        %a{'ng-click' => 'showFundings()', href: '#'} Fundings
+
+    %div{'ng-if' => 'selected_tab == 0'}
+      %h4 Findings
+    %div{'ng-if' => 'selected_tab == 1'}
+      %h4 Brainstorms
+    %div{'ng-if' => 'selected_tab == 2'}
+      %h4 Volunteers
+    %div{'ng-if' => 'selected_tab == 3'}
+      %h4 Fundings
+
   .col-sm-3.well
     %b Category:
     {{problem.category_name}}
