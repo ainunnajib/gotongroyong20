@@ -1,7 +1,7 @@
 namespace :location do
   task :fetch_geocode => :environment do
-    kelurahans = Kelurahan.where("latitude IS NULL")
-    length = kelurahans.count
-    kelurahans.each_with_index {|d, index| puts("#{index}/#{length} #{d.name}"); d.geocode; d.save; sleep(0.15);}
+    kelurahans = Kelurahan.where("latitude IS NULL").limit(2500)
+    total_remaining_count = Kelurahan.where("latitude IS NULL").count
+    kelurahans.each_with_index {|d, index| puts("#{index}/#{total_remaining_count} #{d.name}"); d.geocode; d.save; sleep(0.15);}
   end
 end
