@@ -1,6 +1,6 @@
 problemApp = angular.module('problemApp')
-problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'Problems', 'Categories', 'ProblemVotes',
-  ($scope, $location, Map, Problems, Categories, ProblemVotes) ->
+problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'Problems', 'Categories', 'ProblemVotes', 'Findings',
+  ($scope, $location, Map, Problems, Categories, ProblemVotes, Findings) ->
     $scope.vote = ProblemVotes.query({problem_id: gon.problem_id})
     $scope.problem = Problems.get({id: gon.problem_id})
     $scope.selected_tab = 0
@@ -19,6 +19,7 @@ problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'P
 
     $scope.showFindings = () ->
       $scope.selected_tab = 0
+      $scope.findings = Findings.query({problem_id: gon.problem_id})
 
     $scope.showBrainstorms = () ->
       $scope.selected_tab = 1
@@ -28,4 +29,11 @@ problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'P
 
     $scope.showFundings = () ->
       $scope.selected_tab = 3
+
+    $scope.createFinding = (finding) ->
+      finding.$save({problem_id: gon.problem_id},
+        (data, header) -> $scope.showFindings())
+
+    $scope.newFinding = new Findings()
+    $scope.showFindings()
 ])

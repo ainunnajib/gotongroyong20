@@ -19,7 +19,9 @@ Rails.application.routes.draw do
 
       namespace :problems do
         resources :maps, only: [:index]
-        resources :details, only: [:index, :show], concerns: :votable
+        resources :details, only: [:index, :show], concerns: :votable do
+          resources :findings, only: [:index, :create], concerns: :votable
+        end
         resources :categories, only: [:index]
       end
     end

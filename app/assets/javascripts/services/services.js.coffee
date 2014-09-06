@@ -20,6 +20,9 @@ problemServices.factory "Problems",
 problemServices.factory "Categories",
   ["$resource", ($resource) -> return $resource("/api/v1/problems/categories")]
 
+problemServices.factory "Findings",
+  ["$resource", ($resource) -> return $resource("/api/v1/problems/details/:problem_id/findings/:finding_id")]
+
 voteServices = angular.module('voteServices', ['ngResource'])
 voteServices.factory "ProblemVotes",
   ["$resource", ($resource) -> return $resource("/api/v1/problems/details/:problem_id/votes/", {},
