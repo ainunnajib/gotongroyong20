@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  concern :votable do
+    resources :votes, only: [:index, :create]
+  end
+
   resources :problems
 
   get 'profiles/:id', :controller => 'profiles', :action => 'show'
@@ -13,12 +17,10 @@ Rails.application.routes.draw do
       get 'locations/:province_id/:kabupaten_id/', controller: 'locations', action: 'kecamatans'
       get 'locations/:province_id/:kabupaten_id/:kecamatan_id', controller: 'locations', action: 'kelurahans'
 
-      scope '/problems' do
-        resources :maps, only: [:index], module: 'problems'
-        resources :details, only: [:index, :show], module: 'problems' do
-          resources :votes, only: [:index, :create], controller: 'votes', defaults: {:model_name => 'Problem'}
-        end
-        resources :categories, only: [:index], module: 'problems'
+      namespace :problems do
+        resources :maps, only: [:index]
+        resources :details, only: [:index, :show], concerns: :votable, defaults: {:model_name => 'Problem'}
+        resources :categories, only: [:index]
       end
     end
   end
