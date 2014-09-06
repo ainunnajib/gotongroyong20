@@ -17,10 +17,10 @@ Rails.application.routes.draw do
       get 'locations/:province_id/:kabupaten_id/', controller: 'locations', action: 'kecamatans'
       get 'locations/:province_id/:kabupaten_id/:kecamatan_id', controller: 'locations', action: 'kelurahans'
 
-      namespace :problems do
-        resources :maps, only: [:index]
-        resources :details, only: [:index, :show], concerns: :votable, defaults: {:model_name => 'Problem'}
-        resources :categories, only: [:index]
+      scope '/problems' do
+        resources :maps, only: [:index], module: 'problems'
+        resources :details, only: [:index, :show], concerns: :votable, defaults: {:model_name => 'Problem'}, module: 'problems'
+        resources :categories, only: [:index], module: 'problems'
       end
     end
   end
