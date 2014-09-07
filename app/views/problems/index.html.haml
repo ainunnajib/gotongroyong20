@@ -54,10 +54,15 @@
       Page {{current_page}}/{{total_pages}}
       %a.btn.btn-info.btn-sm{"ng-click" => 'fetchNextPage()', "ng-if" => 'current_page < total_pages'}
         %span.glyphicon.glyphicon-chevron-right
-  .row
+  .row{style: 'margin-top:20px'}
     .col-sm-12
       %ul.media-list
         %li.media{'ng-repeat' => 'problem in detailedProblems'}
+          .pull-left.vote-counter
+            %b
+              {{problem.up_vote - problem.down_vote}}
+              %br
+              votes
           %a.pull-left
             %img.media-object.thumbnail{'ng-src' => '{{problem.images[0]}}', 'ng-if' => 'problem.images.length > 0'}
             %img.media-object.thumbnail{'src' => image_path("404.png"), 'ng-if' => '!problem.images'}
