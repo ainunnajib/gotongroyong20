@@ -47,17 +47,8 @@
       %li{'ng-class' => '{active: selected_tab == 3}'}
         %a{'ng-click' => 'showFundings()', href: '#'} Fundings
 
-    %div{'ng-if' => 'selected_tab == 0'}
-      %h4 New finding
-      =text_area_tag :finding, '', class: 'wide-text-area', 'ng-model' => 'newFinding.comment'
-      =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createFinding(newFinding)')
-
-      %div{style: 'clear:both'}
-      .finding.well{'ng-repeat' => 'finding in findings'}
-        {{finding.comment}}
-        %br
-        .posted-by
-          Posted by: {{finding.posted_by}}
+    %div{'ng-if' => 'selected_tab == 0', 'ng-controller' => 'IndexFindingController'}
+      =render partial: 'findings/index'
 
     %div{'ng-if' => 'selected_tab == 1'}
       %h4 Brainstorms

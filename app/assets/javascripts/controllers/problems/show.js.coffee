@@ -25,7 +25,6 @@ problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'P
 
     $scope.showFindings = () ->
       $scope.selected_tab = 0
-      $scope.findings = Findings.query({problem_id: gon.problem_id})
 
     $scope.showBrainstorms = () ->
       $scope.selected_tab = 1
@@ -36,11 +35,5 @@ problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'P
     $scope.showFundings = () ->
       $scope.selected_tab = 3
 
-    $scope.createFinding = (finding) ->
-      finding.$save({problem_id: gon.problem_id},
-        (data, header) -> $scope.showFindings()
-        (data ,header) -> alert("You need to log in to write finding"))
-
-    $scope.newFinding = new Findings()
     $scope.showFindings()
 ])
