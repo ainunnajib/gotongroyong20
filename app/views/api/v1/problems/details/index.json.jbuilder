@@ -7,8 +7,8 @@ json.problems(@problems) do |problem|
   json.kecamatan_name problem.kecamatan.name
   json.kelurahan_name problem.kelurahan.name
   json.reported_by_name problem.reported_by.name
-  json.up_vote problem.get_upvotes.count
-  json.down_vote problem.get_downvotes.count
+  json.up_vote problem.cached_votes_up
+  json.down_vote problem.cached_votes_down
 
   json.url problem_url(problem, format: :html)
 end
