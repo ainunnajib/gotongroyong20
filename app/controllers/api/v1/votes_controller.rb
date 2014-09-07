@@ -6,9 +6,12 @@ class Api::V1::VotesController < Api::V1::BaseApisController
   end
 
   def create
+    # This one can be simplified using metaprogramming
     case params["model_name"]
       when "Problem"
         item = Problem.find(params[:detail_id])
+      when "Finding"
+        item = Finding.find(params[:finding_id])
     end
 
     type = params[:type]
@@ -29,6 +32,8 @@ class Api::V1::VotesController < Api::V1::BaseApisController
     case params["model_name"]
       when "Problem"
         item = Problem.find(params[:detail_id])
+      when "Finding"
+        item = Finding.find(params[:finding_id])
     end
 
     up_vote = item.get_upvotes.count

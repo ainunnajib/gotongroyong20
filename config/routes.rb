@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       scope 'problems' do
         resources :maps, only: [:index], controller: 'problems/maps'
         resources :details, only: [:index, :show], concerns: :votable, controller: 'problems/details', defaults: {model_name: 'Problem'} do
-          resources :findings, only: [:index, :create], concerns: :votable, controller: 'problems/findings'
+          resources :findings, only: [:index, :create], concerns: :votable, controller: 'problems/findings', defaults: {model_name: 'Finding'}
         end
         resources :categories, only: [:index], controller: 'problems/categories'
       end

@@ -30,3 +30,9 @@ voteServices.factory "ProblemVotes",
       'query': {method:'GET', isArray:false},
     }
   )]
+voteServices.factory "FindingVotes",
+  ["$resource", ($resource) -> return $resource("/api/v1/problems/details/:problem_id/findings/:finding_id/votes/", {},
+    {
+      'query': {method:'GET', isArray:false},
+    }
+  )]
