@@ -1,6 +1,6 @@
 module Api
   module V1
-    class LocationsController < ApplicationController
+    class LocationsController < Api::V1::BaseApisController
       def provinces
         @provinces = Province.all
       end

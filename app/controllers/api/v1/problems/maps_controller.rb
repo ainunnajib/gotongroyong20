@@ -1,4 +1,4 @@
-class Api::V1::Problems::MapsController < ApplicationController
+class Api::V1::Problems::MapsController < Api::V1::BaseApisController
   def index
     @problems = Problem.includes(:kelurahan).all
 

@@ -1,4 +1,4 @@
-class Api::V1::Problems::DetailsController < ApplicationController
+class Api::V1::Problems::DetailsController < Api::V1::BaseApisController
   def index
     @problems = Problem.includes([:reported_by, :province, :kabupaten, :kecamatan, :kelurahan]).order(:created_at).reverse_order.paginate(page: params[:page], per_page: 20)
 

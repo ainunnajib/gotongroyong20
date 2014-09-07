@@ -1,7 +1,7 @@
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController'}
   .col-sm-9
     .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}
-      .thumb{'ng-if' => "vote.my_vote_status == 'quo'"}
+      .thumb{'ng-if' => "vote.my_vote_status == 'quo' || vote.my_vote_status == 'not_available'"}
         =image_tag("up_inactive.png", 'ng-click' => 'vote_up()', mouseover: "up_hover.png", size: "30x35")
         %br
         .point

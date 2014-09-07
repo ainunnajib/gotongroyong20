@@ -1,4 +1,6 @@
-class Api::V1::Problems::VotesController < ApplicationController
+class Api::V1::Problems::VotesController < Api::V1::BaseApisController
+  before_action :authenticate_user_json!, only: [:create]
+
   def index
     render_index
   end

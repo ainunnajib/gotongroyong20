@@ -1,4 +1,6 @@
-class Api::V1::Problems::FindingsController < ApplicationController
+class Api::V1::Problems::FindingsController < Api::V1::BaseApisController
+  before_action :authenticate_user_json!, only: [:create]
+
   def index
     detail_id = params[:detail_id].to_i
     @findings = Finding.where(problem_id: detail_id).order(:created_at).reverse_order

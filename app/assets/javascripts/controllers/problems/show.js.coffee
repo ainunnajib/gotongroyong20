@@ -7,15 +7,21 @@ problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'P
 
     $scope.vote_up = () ->
       v = new ProblemVotes({type: 'up'})
-      v.$save({problem_id: gon.problem_id}, (data, header) -> $scope.vote = data)
+      v.$save({problem_id: gon.problem_id},
+        (data, header) -> $scope.vote = data
+        (data ,header) -> alert("You need to log in to vote"))
 
     $scope.vote_down = () ->
       v = new ProblemVotes({type: 'down'})
-      v.$save({problem_id: gon.problem_id}, (data, header) -> $scope.vote = data)
+      v.$save({problem_id: gon.problem_id},
+        (data, header) -> $scope.vote = data
+        (data ,header) -> alert("You need to log in to vote"))
 
     $scope.unvote = () ->
       v = new ProblemVotes({type: 'unvote'})
-      v.$save({problem_id: gon.problem_id}, (data, header) -> $scope.vote = data)
+      v.$save({problem_id: gon.problem_id},
+        (data, header) -> $scope.vote = data
+        (data ,header) -> alert("You need to log in to vote"))
 
     $scope.showFindings = () ->
       $scope.selected_tab = 0
@@ -32,7 +38,8 @@ problemApp.controller('ShowProblemController', ['$scope', '$location', 'Map', 'P
 
     $scope.createFinding = (finding) ->
       finding.$save({problem_id: gon.problem_id},
-        (data, header) -> $scope.showFindings())
+        (data, header) -> $scope.showFindings()
+        (data ,header) -> alert("You need to log in to write finding"))
 
     $scope.newFinding = new Findings()
     $scope.showFindings()
