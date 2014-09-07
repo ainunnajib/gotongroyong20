@@ -1,6 +1,6 @@
 class Api::V1::Problems::DetailsController < ApplicationController
   def index
-    @problems = Problem.includes([:reported_by, :province, :kabupaten, :kecamatan, :kelurahan]).paginate(page: params[:page], per_page: 20)
+    @problems = Problem.includes([:reported_by, :province, :kabupaten, :kecamatan, :kelurahan]).order(:created_at).reverse_order.paginate(page: params[:page], per_page: 20)
 
     @problems = @problems.where(province_id: params[:province_id].to_i) if params[:province_id]
     @problems = @problems.where(kabupaten_id: params[:kabupaten_id].to_i) if params[:kabupaten_id]
