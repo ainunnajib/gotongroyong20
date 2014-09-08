@@ -135,6 +135,8 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
     $scope.$on('$locationChangeSuccess',
     (event) ->
       params = $location.search()
+      old_current_page = $scope.current_page
+
       if params.page
         $scope.current_page = parseInt(params.page)
       else
@@ -150,7 +152,10 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
         $scope.getKelurahans($scope.filter.province, $scope.filter.kabupaten, $scope.filter.kecamatan)
       if params.kelurahan_id then $scope.filter.kelurahan.id = parseInt(params.kelurahan_id)
 
-      $scope.fetchMapProblems($scope.filter)
+      # Don't reload map if it is only page change
+      if (old_current_page == $scope.current_page)
+        $scope.fetchMapProblems($scope.filter)
+
       $scope.fetchDetailedProblems($scope.current_page, $scope.filter)
     )
 ])
