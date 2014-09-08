@@ -4,7 +4,7 @@
 
 %div{style: 'clear:both'}
 .finding{'ng-repeat' => 'finding in findings'}
-  .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 10px'}
+  .pull-left.vote
     .thumb{'ng-if' => "finding.my_vote_status == 'quo' || finding.my_vote_status == 'not_available'"}
       =image_tag("up_inactive.png", 'ng-click' => 'vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
       %br
@@ -26,9 +26,19 @@
 
   .comment
     {{finding.comment}}
-  %br
-  .posted-by
-    Posted by: {{finding.posted_by}}
+    %br
+    .posted-by
+      Posted by: {{finding.posted_by}}
+
+    %br
+    %div
+      %a.thumb{'ng-click' => 'finding.show_new_reply = true ? !finding.show_new_reply : false'}
+        Reply
+      %div{'ng-if' => 'finding.show_new_reply'}
+        %br
+        =text_area_tag :finding, '', class: 'reply', 'ng-model' => 'newReply.comment'
+        %br
+        =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createReply(newReply)')
 
   %div{style: 'clear:both'}
   %hr

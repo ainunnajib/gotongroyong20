@@ -54,6 +54,14 @@
 
 .finding .comment {
   padding-top: 20px;
+  overflow: hidden;
+}
+
+.finding .vote {
+  margin-right: 20px;
+  margin-bottom: 5px;
+  margin-left:10px;
+  margin-top: 20px
 }
 
 .finding .point {
@@ -65,6 +73,11 @@
 .finding hr {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.finding .reply {
+  height: 150px;
+  width: 100%;
 }
 
 .posted-by {
