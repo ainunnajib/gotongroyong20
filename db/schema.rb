@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907085952) do
+ActiveRecord::Schema.define(version: 20140908072708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "finding_hierarchies", id: false, force: true do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+  end
+
+  add_index "finding_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "finding_anc_desc_udx", unique: true, using: :btree
+  add_index "finding_hierarchies", ["descendant_id"], name: "finding_desc_idx", using: :btree
 
   create_table "findings", force: true do |t|
     t.integer  "problem_id"
@@ -24,6 +33,7 @@ ActiveRecord::Schema.define(version: 20140907085952) do
     t.datetime "updated_at"
     t.integer  "cached_votes_up",   default: 0
     t.integer  "cached_votes_down", default: 0
+    t.integer  "parent_id"
   end
 
   add_index "findings", ["cached_votes_down"], name: "index_findings_on_cached_votes_down", using: :btree

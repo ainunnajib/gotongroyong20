@@ -60,3 +60,4 @@ gem 'aws-sdk'
 gem 'will_paginate', '~> 3.0.5'
 
 gem 'acts_as_votable', '~> 0.10.0'
+gem 'closure_tree'

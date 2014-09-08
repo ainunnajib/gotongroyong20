@@ -40,6 +40,9 @@ GEM
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.2.2)
+    closure_tree (5.0.0)
+      activerecord (>= 3.2.0)
+      with_advisory_lock (>= 3.0.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -194,6 +197,9 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.7)
+    with_advisory_lock (3.0.0)
+      activerecord (>= 3.2)
+      thread_safe
 
 PLATFORMS
   ruby
@@ -204,6 +210,7 @@ DEPENDENCIES
   angularjs-rails
   aws-sdk
   bootstrap-sass (~> 3.1.1)
+  closure_tree
   coffee-rails (~> 4.0.0)
   devise
   figaro
