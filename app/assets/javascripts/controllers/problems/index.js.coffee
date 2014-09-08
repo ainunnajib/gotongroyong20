@@ -8,14 +8,14 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
 
       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions)
 
+      markers = []
       for problem in $scope.mapProblems
         marker = new google.maps.Marker(
-          map: map
-          draggable: true
           animation: google.maps.Animation.DROP
           position: new google.maps.LatLng(problem.latitude, problem.longitude)
         )
-        google.maps.event.addListener marker, "click", toggleBounce
+        markers.push(marker)
+      markerCluster = new MarkerClusterer(map, markers)
 
       return
 
