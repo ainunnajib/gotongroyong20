@@ -33,5 +33,12 @@ problemApp.controller('IndexFindingController', ['$scope', 'Findings', 'FindingV
       (data, header) -> $scope.loadFindings()
       (data ,header) -> alert("You need to log in to write finding"))
 
+    $scope.newReply = new Findings()
+    $scope.createReply = (parent_finding, reply) ->
+      reply.parent_id = parent_finding.id
+      reply.$save({problem_id: gon.problem_id},
+      (data, header) -> $scope.loadFindings()
+      (data ,header) -> alert("You need to log in to write finding"))
+
     $scope.loadFindings()
 ])

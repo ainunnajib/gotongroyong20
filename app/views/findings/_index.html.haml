@@ -38,7 +38,44 @@
         %br
         =text_area_tag :finding, '', class: 'reply', 'ng-model' => 'newReply.comment'
         %br
-        =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createReply(newReply)')
+        =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createReply(finding, newReply)')
+
+    .finding{'ng-repeat' => 'finding in finding.replies'}
+      .pull-left.vote
+        .thumb{'ng-if' => "finding.my_vote_status == 'quo' || finding.my_vote_status == 'not_available'"}
+          =image_tag("up_inactive.png", 'ng-click' => 'vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
+          %br
+          .point
+            {{finding.up_vote - finding.down_vote}}
+          =image_tag("down_inactive.png", 'ng-click' =>'vote_down(finding)', size: "20x25", style: 'margin-top:10px')
+        .thumb{'ng-if' => "finding.my_vote_status == 'up'"}
+          =image_tag("up_pressed.png", mouseover: "up_hover.png", size: "20x25", 'ng-click' => 'unvote(finding)')
+          %br
+          .point
+            {{finding.up_vote - finding.down_vote}}
+          =image_tag("down_inactive.png", 'ng-click' => 'vote_down(finding)', size: "20x25", style: 'margin-top:10px')
+        .thumb{'ng-if' => "finding.my_vote_status == 'down'"}
+          =image_tag("up_inactive.png", 'ng-click' => 'vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
+          %br
+          .point
+            {{finding.up_vote - finding.down_vote}}
+          =image_tag("down_pressed.png", size: "20x25", style: 'margin-top:10px', 'ng-click' => 'unvote(finding)')
+
+      .comment
+        {{finding.comment}}
+        %br
+        .posted-by
+          Posted by: {{finding.posted_by}}
+
+        %br
+        %div
+          %a.thumb{'ng-click' => 'finding.show_new_reply = true ? !finding.show_new_reply : false'}
+            Reply
+          %div{'ng-if' => 'finding.show_new_reply'}
+            %br
+            =text_area_tag :finding, '', class: 'reply', 'ng-model' => 'newReply.comment'
+            %br
+            =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createReply(finding, newReply)')
 
   %div{style: 'clear:both'}
   %hr
