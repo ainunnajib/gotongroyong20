@@ -4,23 +4,21 @@ Gotong Royong 2.0
 
 Major components
 -----------
-1) Ruby on Rails 4.1.5
-2) PostgreSQL
-3) AngularJS
-4) Bootstrap
+1. Ruby on Rails 4.1.5
+2. PostgreSQL
+3. AngularJS
+4. Twitter Bootstrap
 
 Setting up development environment
 -------------------------------------
 1) Fork from this Github
-2) 
+
+2) Correct config/database.yml to your Postgres configuration
 
     git clone <your repo>
-    cd <project folder>
+    cd gotongroyong20
     bundle
-3) Correct config/database.yml to your Postgres configuration
-4) Rename config/application.yml.sample to config/application.yml
-5)
-
+    mv config/application.yml.sample config/application.yml
     rake db:migrate
     rake db:seed
     rake location:fetch_geocode #fetch geocode data from Google. Limited to 2,500 request/day
