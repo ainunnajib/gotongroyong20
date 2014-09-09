@@ -3,7 +3,7 @@
 =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createFinding(newFinding)')
 
 %div{style: 'clear:both'}
-.finding{'ng-repeat' => 'finding in findings'}
+.finding{'ng-repeat' => "finding in findings | orderBy:'up_vote-down_vote':true"}
   .pull-left.vote
     .thumb{'ng-if' => "finding.my_vote_status == 'quo' || finding.my_vote_status == 'not_available'"}
       =image_tag("up_inactive.png", 'ng-click' => 'vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
@@ -40,7 +40,7 @@
         %br
         =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createReply(finding, newReply)')
 
-    .finding{'ng-repeat' => 'finding in finding.replies'}
+    .finding{'ng-repeat' => "finding in finding.replies | orderBy: 'created_at'"}
       .pull-left.vote
         .thumb{'ng-if' => "finding.my_vote_status == 'quo' || finding.my_vote_status == 'not_available'"}
           =image_tag("up_inactive.png", 'ng-click' => 'vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
@@ -77,7 +77,7 @@
             %br
             =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createReply(finding, newReply)')
 
-          .finding{'ng-repeat' => 'finding in finding.replies'}
+          .finding{'ng-repeat' => "finding in finding.replies | orderBy: 'created_at'"}
             .pull-left.vote
               .thumb{'ng-if' => "finding.my_vote_status == 'quo' || finding.my_vote_status == 'not_available'"}
                 =image_tag("up_inactive.png", 'ng-click' => 'vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
