@@ -3,10 +3,10 @@
 
 %div{style: 'clear:both'}
 .finding{'ng-repeat' => "finding in findings | orderBy:'up_vote-down_vote':true"}
-  %finding-markup
+  =render partial: "findings/finding_markup", locals: {allow_reply: true}
 
   .finding{style: 'margin-left:35px', 'ng-repeat' => "finding in finding.replies | orderBy: 'created_at'"}
-    %finding-markup
+    =render partial: "findings/finding_markup", locals: {allow_reply: true}
 
     .finding{style: 'margin-left:35px', 'ng-repeat' => "finding in finding.replies | orderBy: 'created_at'"}
-      %finding-markup
+      =render partial: "findings/finding_markup", locals: {allow_reply: false}
