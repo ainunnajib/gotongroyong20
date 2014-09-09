@@ -1,22 +1,22 @@
 .pull-left.vote
   .thumb{'ng-if' => "finding.my_vote_status == 'quo' || finding.my_vote_status == 'not_available'"}
-    =image_tag("up_inactive.png", 'ng-click' => 'vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
+    =image_tag("up_inactive.png", 'ng-click' => 'vm.vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
     %br
     .point
       {{finding.up_vote - finding.down_vote}}
-    =image_tag("down_inactive.png", 'ng-click' =>'vote_down(finding)', size: "20x25", style: 'margin-top:10px')
+    =image_tag("down_inactive.png", 'ng-click' =>'vm.vote_down(finding)', size: "20x25", style: 'margin-top:10px')
   .thumb{'ng-if' => "finding.my_vote_status == 'up'"}
-    =image_tag("up_pressed.png", mouseover: "up_hover.png", size: "20x25", 'ng-click' => 'unvote(finding)')
+    =image_tag("up_pressed.png", mouseover: "up_hover.png", size: "20x25", 'ng-click' => 'vm.unvote(finding)')
     %br
     .point
       {{finding.up_vote - finding.down_vote}}
-    =image_tag("down_inactive.png", 'ng-click' => 'vote_down(finding)', size: "20x25", style: 'margin-top:10px')
+    =image_tag("down_inactive.png", 'ng-click' => 'vm.vote_down(finding)', size: "20x25", style: 'margin-top:10px')
   .thumb{'ng-if' => "finding.my_vote_status == 'down'"}
-    =image_tag("up_inactive.png", 'ng-click' => 'vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
+    =image_tag("up_inactive.png", 'ng-click' => 'vm.vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
     %br
     .point
       {{finding.up_vote - finding.down_vote}}
-    =image_tag("down_pressed.png", size: "20x25", style: 'margin-top:10px', 'ng-click' => 'unvote(finding)')
+    =image_tag("down_pressed.png", size: "20x25", style: 'margin-top:10px', 'ng-click' => 'vm.unvote(finding)')
 
 .comment
   .posted-by
@@ -29,6 +29,6 @@
         %span.glyphicon.glyphicon-chevron-down
       %div{"ng-if" => "finding.show_new_reply"}
         %br
-        =text_area_tag :finding, '', 'ng-model' => 'newReply.comment'
+        =text_area_tag :finding, '', 'ng-model' => 'vm.newReply.comment'
         %br
-        =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createReply(finding, newReply)')
+        =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'vm.createReply(finding, vm.newReply)')

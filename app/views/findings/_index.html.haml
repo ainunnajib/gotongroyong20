@@ -1,12 +1,13 @@
-=text_area_tag :finding, '', class: 'wide-text-area', 'ng-model' => 'newFinding.comment', style: 'margin-top:20px'
-=button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'createFinding(newFinding)')
+%div{'ng-controller' => 'IndexFindingController as vm'}
+  =text_area_tag :finding, '', class: 'wide-text-area', 'ng-model' => 'vm.newFinding.comment', style: 'margin-top:20px'
+  =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'vm.createFinding(vm.newFinding)')
 
-%div{style: 'clear:both'}
-.finding{'ng-repeat' => "finding in findings | orderBy:'up_vote-down_vote':true"}
-  =render partial: "findings/finding_markup", locals: {allow_reply: true}
-
-  .finding{style: 'margin-left:35px', 'ng-repeat' => "finding in finding.replies | orderBy: 'created_at'"}
+  %div{style: 'clear:both'}
+  .finding{'ng-repeat' => "finding in vm.findings | orderBy:'up_vote-down_vote':true"}
     =render partial: "findings/finding_markup", locals: {allow_reply: true}
 
     .finding{style: 'margin-left:35px', 'ng-repeat' => "finding in finding.replies | orderBy: 'created_at'"}
-      =render partial: "findings/finding_markup", locals: {allow_reply: false}
+      =render partial: "findings/finding_markup", locals: {allow_reply: true}
+
+      .finding{style: 'margin-left:35px', 'ng-repeat' => "finding in finding.replies | orderBy: 'created_at'"}
+        =render partial: "findings/finding_markup", locals: {allow_reply: false}
