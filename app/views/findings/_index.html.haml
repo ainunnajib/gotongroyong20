@@ -27,7 +27,7 @@
   .comment
     .posted-by
       {{finding.posted_by}}
-    {{finding.comment}}
+    %span{'ng-bind-html' => 'finding.comment | nl2br'}
 
     .reply
       %a.thumb.btn.btn-default.btn-xs{'ng-click' => 'finding.show_new_reply = true ? !finding.show_new_reply : false'}
@@ -62,7 +62,7 @@
     .comment
       .posted-by
         {{finding.posted_by}}
-      {{finding.comment}}
+      %span{'ng-bind-html' => 'finding.comment | nl2br'}
 
       .reply
         %a.thumb.btn.btn-default.btn-xs{'ng-click' => 'finding.show_new_reply = true ? !finding.show_new_reply : false'}
@@ -97,4 +97,4 @@
       .comment
         .posted-by
           {{finding.posted_by}}
-        {{finding.comment}}
+        %span{'ng-bind-html' => 'finding.comment | nl2br'}

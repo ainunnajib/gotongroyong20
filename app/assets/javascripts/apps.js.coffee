@@ -1,1 +1,1 @@
-problemApp = angular.module('problemApp', ['locationServices', 'problemServices', 'voteServices'])
+problemApp = angular.module('problemApp', ['locationServices', 'problemServices', 'voteServices', 'textFilters', 'ngSanitize'])
