@@ -25,10 +25,9 @@
       =image_tag("down_pressed.png", size: "20x25", style: 'margin-top:10px', 'ng-click' => 'unvote(finding)')
 
   .comment
-    {{finding.comment}}
-    %br
     .posted-by
       {{finding.posted_by}}
+    {{finding.comment}}
 
     .reply
       %a.thumb.btn.btn-default.btn-xs{'ng-click' => 'finding.show_new_reply = true ? !finding.show_new_reply : false'}
@@ -61,10 +60,9 @@
         =image_tag("down_pressed.png", size: "20x25", style: 'margin-top:10px', 'ng-click' => 'unvote(finding)')
 
     .comment
-      {{finding.comment}}
-      %br
       .posted-by
         {{finding.posted_by}}
+      {{finding.comment}}
 
       .reply
         %a.thumb.btn.btn-default.btn-xs{'ng-click' => 'finding.show_new_reply = true ? !finding.show_new_reply : false'}
@@ -97,10 +95,9 @@
           =image_tag("down_pressed.png", size: "20x25", style: 'margin-top:10px', 'ng-click' => 'unvote(finding)')
 
       .comment
-        {{finding.comment}}
-        %br
         .posted-by
           {{finding.posted_by}}
+        {{finding.comment}}
 
   %div{style: 'clear:both'}
   %hr
