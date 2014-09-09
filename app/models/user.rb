@@ -9,9 +9,7 @@ class User < ActiveRecord::Base
   acts_as_voter
 
   def self.from_omniauth(auth)
-    logger.info(auth)
-
-    where(auth.slice(:provider, :uid)).first_or_create do |user|
+    where({provider: auth.provider, uid: auth.uid}).first_or_create do |user|
       if auth.info.email
         user.email = auth.info.email
       else
