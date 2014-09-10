@@ -47,7 +47,7 @@
       %li{'ng-class' => '{active: selected_tab == 3}'}
         %a{'ng-click' => 'showFundings()', href: '#'} Fundings
 
-    %div{'ng-if' => 'selected_tab == 0', 'ng-controller' => 'IndexFindingController'}
+    %div{'ng-if' => 'selected_tab == 0'}
       =render partial: 'findings/index'
 
     %div{'ng-if' => 'selected_tab == 1'}
