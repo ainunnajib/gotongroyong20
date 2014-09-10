@@ -5,7 +5,7 @@ class Problem < ActiveRecord::Base
   belongs_to :kecamatan
   belongs_to :kelurahan
 
-  validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :urgency, :presence => true
+  validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :kelurahan, :urgency, :presence => true
   before_save :remove_empty_images
 
   acts_as_votable
