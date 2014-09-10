@@ -51,11 +51,13 @@ class Problem < ActiveRecord::Base
   end
 
   def remove_empty_images
-    new_images = self.images.inject([]) do |res, image|
-      if image and image.length > 0
-        res.append(image)
+    if self.images
+      new_images = self.images.inject([]) do |res, image|
+        if image and image.length > 0
+          res.append(image)
+        end
       end
+      self.images = new_images
     end
-    self.images = new_images
   end
 end
