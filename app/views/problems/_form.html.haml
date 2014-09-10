@@ -56,7 +56,7 @@
     });
   });
 
-%div{'ng-app' => 'problemApp', 'ng-controller' => 'NewProblemController'}
+%div{'ng-app' => 'problemApp', 'ng-controller' => 'NewProblemController as vm'}
   = form_for @problem, html: {class:'form-horizontal', id:'problemForm'} do |f|
     - if @problem.errors.any?
       #error_explanation
@@ -114,20 +114,20 @@
     .form-group
       = f.label :lokasi, class: 'col-sm-2 control-label'
       .col-sm-2
-        = f.select :province_id, [], {}, {'ng-model' => 'newProblem.province',
-          'ng-options' => 'province.name for province in provinces track by province.id', 'ng-change' => 'getKabupatens(newProblem.province)',
+        = f.select :province_id, [], {}, {'ng-model' => 'vm.selectedProvince',
+          'ng-options' => 'province.name for province in vm.provinces track by province.id', 'ng-change' => 'vm.getKabupatens()',
           class: 'form-control'}
-      .col-sm-2{'ng-if' => 'kabupatens.length > 0'}
-        = f.select :kabupaten_id, [], {}, {'ng-model' => 'newProblem.kabupaten',
-          'ng-options' => 'kabupaten.name for kabupaten in kabupatens track by kabupaten.id', 'ng-change' => 'getKecamatans(newProblem.province, newProblem.kabupaten)',
+      .col-sm-2{'ng-if' => 'vm.kabupatens.length > 0'}
+        = f.select :kabupaten_id, [], {}, {'ng-model' => 'vm.selectedKabupaten',
+          'ng-options' => 'kabupaten.name for kabupaten in vm.kabupatens track by kabupaten.id', 'ng-change' => 'vm.getKecamatans()',
           class: 'form-control'}
-      .col-sm-2{'ng-if' => 'kecamatans.length > 0'}
-        = f.select :kecamatan_id, [], {}, {'ng-model' => 'newProblem.kecamatan',
-          'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', 'ng-change' => 'getKelurahans(newProblem.province, newProblem.kabupaten, newProblem.kecamatan)',
+      .col-sm-2{'ng-if' => 'vm.kecamatans.length > 0'}
+        = f.select :kecamatan_id, [], {}, {'ng-model' => 'vm.selectedKecamatan',
+          'ng-options' => 'kecamatan.name for kecamatan in vm.kecamatans track by kecamatan.id', 'ng-change' => 'vm.getKelurahans()',
           class: 'form-control'}
-      .col-sm-2{'ng-if' => 'kelurahans.length > 0'}
-        = f.select :kelurahan_id, [], {}, {'ng-model' => 'newProblem.kelurahan',
-          'ng-options' => 'kelurahan.name for kelurahan in kelurahans track by kelurahan.id', class: 'form-control'}
+      .col-sm-2{'ng-if' => 'vm.kelurahans.length > 0'}
+        = f.select :kelurahan_id, [], {}, {'ng-model' => 'vm.selectedKelurahan',
+          'ng-options' => 'kelurahan.name for kelurahan in vm.kelurahans track by kelurahan.id', class: 'form-control'}
     .form-group
       .col-sm-10.col-sm-offset-2
         = f.submit 'Save', class: 'btn btn-primary'
