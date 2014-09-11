@@ -2,10 +2,10 @@ problemApp = angular.module('problemApp')
 problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 'Categories', 'ProblemVotes', 'Findings',
   ($location, Map, Problems, Categories, ProblemVotes, Findings) ->
 
-    upInactiveImg = '/assets/up_inactive.png'
-    upPressedImg = '/assets/up_pressed.png'
-    downInactiveImg = '/assets/down_inactive.png'
-    downPressedImg = '/assets/down_pressed.png'
+    upInactiveImg = image_path('up_inactive.png')
+    upPressedImg = image_path('up_pressed.png')
+    downInactiveImg = image_path('down_inactive.png')
+    downPressedImg = image_path('down_pressed.png')
 
     vm = this;
     vm.problem = Problems.get({id: gon.problem_id})
