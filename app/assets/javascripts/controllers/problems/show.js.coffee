@@ -1,12 +1,7 @@
 problemApp = angular.module('problemApp')
 problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 'Categories', 'ProblemVotes', 'Findings',
   ($location, Map, Problems, Categories, ProblemVotes, Findings) ->
-
-    upInactiveImg = image_path('up_inactive.png')
-    upPressedImg = image_path('up_pressed.png')
-    downInactiveImg = image_path('down_inactive.png')
-    downPressedImg = image_path('down_pressed.png')
-
+  
     vm = this;
     vm.problem = Problems.get({id: gon.problem_id})
     vm.selected_tab = 0
@@ -19,9 +14,7 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
       v = new ProblemVotes({type: 'unvote'})
       v.$save({problem_id: gon.problem_id},
       (data, header) ->
-        vm.vote = data
-        vm.upStatusImage = upInactiveImg
-        vm.downStatusImage = downInactiveImg        
+        vm.vote = data             
       (data ,header) -> alert("You need to log in to vote"))
 
     vm.vote_up = () ->
@@ -31,9 +24,7 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
         v = new ProblemVotes({type: 'up'})
         v.$save({problem_id: gon.problem_id},
           (data, header) ->
-            vm.vote = data
-            vm.upStatusImage = upPressedImg
-            vm.downStatusImage = downInactiveImg            
+            vm.vote = data                      
           (data ,header) -> alert("You need to log in to vote"))
 
     vm.vote_down = () ->
@@ -43,9 +34,7 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
         v = new ProblemVotes({type: 'down'})
         v.$save({problem_id: gon.problem_id},
           (data, header) ->
-            vm.vote = data
-            vm.upStatusImage = upInactiveImg
-            vm.downStatusImage = downPressedImg            
+            vm.vote = data                     
           (data ,header) -> alert("You need to log in to vote"))
 
     vm.showFindings = () ->
@@ -63,16 +52,6 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
     ProblemVotes.query({problem_id: gon.problem_id},
     (data, header)->
       vm.vote = data      
-
-      if(vm.vote.my_vote_status == 'quo' || vm.vote.my_vote_status == 'not_available')
-        vm.upStatusImage = upInactiveImg
-        vm.downStatusImage = downInactiveImg
-      else if(vm.vote.my_vote_status == 'up')
-        vm.upStatusImage = upPressedImg
-        vm.downStatusImage = downInactiveImg
-      else if(vm.vote.my_vote_status == 'down')
-        vm.upStatusImage = upInactiveImg
-        vm.downStatusImage = downPressedImg
     )
 
     vm.showFindings()

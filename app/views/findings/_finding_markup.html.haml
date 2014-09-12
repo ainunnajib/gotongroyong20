@@ -1,22 +1,5 @@
-.pull-left.vote
-  .thumb{'ng-if' => "finding.my_vote_status == 'quo' || finding.my_vote_status == 'not_available'"}
-    =image_tag("up_inactive.png", 'ng-click' => 'vm.vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
-    %br
-    .point
-      {{finding.up_vote - finding.down_vote}}
-    =image_tag("down_inactive.png", 'ng-click' =>'vm.vote_down(finding)', size: "20x25", style: 'margin-top:10px')
-  .thumb{'ng-if' => "finding.my_vote_status == 'up'"}
-    =image_tag("up_pressed.png", mouseover: "up_hover.png", size: "20x25", 'ng-click' => 'vm.unvote(finding)')
-    %br
-    .point
-      {{finding.up_vote - finding.down_vote}}
-    =image_tag("down_inactive.png", 'ng-click' => 'vm.vote_down(finding)', size: "20x25", style: 'margin-top:10px')
-  .thumb{'ng-if' => "finding.my_vote_status == 'down'"}
-    =image_tag("up_inactive.png", 'ng-click' => 'vm.vote_up(finding)', mouseover: "up_hover.png", size: "20x25")
-    %br
-    .point
-      {{finding.up_vote - finding.down_vote}}
-    =image_tag("down_pressed.png", size: "20x25", style: 'margin-top:10px', 'ng-click' => 'vm.unvote(finding)')
+.pull-left.vote  
+  %vote-section{'vote-up' => 'vm.vote_up(finding)', 'vote-down' => 'vm.vote_down(finding)', 'vote-status' => '{{finding.my_vote_status}}', 'up-vote-count' => '{{finding.up_vote}}', 'down-vote-count' => '{{finding.down_vote}}', 'img-style' => '{{vm.voteImgStyle}}'}
 
 .comment
   .posted-by
