@@ -5,11 +5,9 @@ appDirectives.directive 'voteSection', () ->
         restrict: 'AEC',
         scope: {
             'upVoteCount': '@',
-            'downVoteCount': '@',
-            'upVoted': '@',
-            'downVoted': '@',
-            'imgHeight': '@',
-            'imgWidth': '@',
+            'downVoteCount': '@',            
+            'voteStatus': '@',
+            'imgStyle': '@',            
             'voteUp': '&',
             'voteDown': '&'
         },
@@ -19,12 +17,12 @@ appDirectives.directive 'voteSection', () ->
             scope['downInactiveImg'] = image_path('down_inactive.png')
             scope['downPressedImg'] = image_path('down_pressed.png')            
         template: '<div class="thumb">
-              <img height="35" ng-click="voteUp()" ng-src="{{upVoted == \'true\' && upPressedImg || upInactiveImg}}" width="30">
+              <img ng-click="voteUp()" ng-src="{{voteStatus == \'up\' && upPressedImg || upInactiveImg}}" ng-style="{{imgStyle}}">
               <br>
               <div class="point ng-binding">
                 {{upVoteCount - downVoteCount}}
               </div>
-              <img height="35" ng-click="voteDown()" ng-src="{{downVoted == \'true\' && downPressedImg || downInactiveImg}}" width="30">
+              <img ng-click="voteDown()" ng-src="{{voteStatus == \'down\' && downPressedImg || downInactiveImg}}" ng-style="{{imgStyle}}">
             </div>'        
     }
     

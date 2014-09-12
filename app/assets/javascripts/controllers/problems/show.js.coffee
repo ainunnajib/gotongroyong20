@@ -10,8 +10,10 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
     vm = this;
     vm.problem = Problems.get({id: gon.problem_id})
     vm.selected_tab = 0
-    vm.upVoted = false
-    vm.downVoted = false
+    vm.voteImgStyle = {
+        'width': '30px',
+        'height': '35px'
+    }    
 
     unvote = () ->
       v = new ProblemVotes({type: 'unvote'})
@@ -19,9 +21,7 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
       (data, header) ->
         vm.vote = data
         vm.upStatusImage = upInactiveImg
-        vm.downStatusImage = downInactiveImg
-        vm.upVoted = false
-        vm.downVoted = false
+        vm.downStatusImage = downInactiveImg        
       (data ,header) -> alert("You need to log in to vote"))
 
     vm.vote_up = () ->
@@ -33,9 +33,7 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
           (data, header) ->
             vm.vote = data
             vm.upStatusImage = upPressedImg
-            vm.downStatusImage = downInactiveImg
-            vm.upVoted = true
-            vm.downVoted = false
+            vm.downStatusImage = downInactiveImg            
           (data ,header) -> alert("You need to log in to vote"))
 
     vm.vote_down = () ->
@@ -47,9 +45,7 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
           (data, header) ->
             vm.vote = data
             vm.upStatusImage = upInactiveImg
-            vm.downStatusImage = downPressedImg
-            vm.upVoted = false
-            vm.downVoted = true
+            vm.downStatusImage = downPressedImg            
           (data ,header) -> alert("You need to log in to vote"))
 
     vm.showFindings = () ->
@@ -66,9 +62,7 @@ problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 
 
     ProblemVotes.query({problem_id: gon.problem_id},
     (data, header)->
-      vm.vote = data
-      vm.upVoted = vm.vote.my_vote_status == 'up'
-      vm.downVoted = vm.vote.my_vote_status == 'down'
+      vm.vote = data      
 
       if(vm.vote.my_vote_status == 'quo' || vm.vote.my_vote_status == 'not_available')
         vm.upStatusImage = upInactiveImg
