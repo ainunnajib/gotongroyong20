@@ -1,12 +1,7 @@
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController as vm'}
   .col-sm-9
-    .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}
-      .thumb
-        %img{'ng-src' => '{{vm.upStatusImage}}', 'ng-click' => 'vm.vote_up()', 'height' => '35', 'width' => '30'}
-        %br
-        .point
-          {{vm.vote.up_vote - vm.vote.down_vote}}
-        %img{'ng-src' => '{{vm.downStatusImage}}', 'ng-click' => 'vm.vote_down()', 'height' => '35', 'width' => '30'}
+    .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}      
+      %vote-section{'vote-up' => 'vm.vote_up()', 'vote-down' => 'vm.vote_down()', 'up-voted' => '{{vm.upVoted}}', 'down-voted' => '{{vm.downVoted}}', 'up-vote-count' => '{{vm.vote.up_vote}}', 'down-vote-count' => '{{vm.vote.down_vote}}'}
     %h4
       {{vm.problem.title}}
     %br
