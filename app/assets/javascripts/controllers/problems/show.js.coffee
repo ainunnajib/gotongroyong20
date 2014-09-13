@@ -1,9 +1,12 @@
 problemApp = angular.module('problemApp')
-problemApp.controller('ShowProblemController', ['$location', 'Map', 'Problems', 'Categories', 'ProblemVotes', 'Findings',
-  ($location, Map, Problems, Categories, ProblemVotes, Findings) ->
+problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Problems', 'Categories', 'ProblemVotes', 'Findings',
+  ($location, $sce, Map, Problems, Categories, ProblemVotes, Findings) ->
   
     vm = this;
-    vm.problem = Problems.get({id: gon.problem_id})
+    vm.problem = Problems.get({id: gon.problem_id},
+      (data, header) ->
+        vm.brainstorm_url = $sce.trustAsResourceUrl("http://" + vm.problem.id + ".discourse.gotong.royong.org")
+)
     vm.selected_tab = 0
     vm.voteImgStyle = {
         'width': '30px',
