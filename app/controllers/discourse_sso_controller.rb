@@ -3,9 +3,6 @@ require 'uri'
 
 class DiscourseSsoController < ApplicationController
   def sso
-    puts request.referrer
-    referrer_host = URI.parse(request.referrer).host
-
     secret = "1qazxcde345"
     sso = SingleSignOn.parse(request.query_string, secret)
     sso.email = current_user.email
@@ -14,6 +11,10 @@ class DiscourseSsoController < ApplicationController
     sso.external_id = current_user.id
     sso.sso_secret = secret
 
-    redirect_to sso.to_url("http://#{referrer_host}/session/sso_login")
+    # http://localhost:3000/problems/9501.html
+    # Hack: Extract 9501
+
+    problem_id = /.+\/(\d+)\.html/.match(request.referrer).captures[0]
+    redirect_to sso.to_url("http://#{problem_id}.discourse.gotong.royong.org/session/sso_login")
   end
 end
