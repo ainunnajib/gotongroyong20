@@ -1,3 +1,8 @@
+=content_for :header do
+  :coffeescript
+    $(document).ready ->
+      $("textarea").autosize()
+
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController as vm'}
   .col-sm-6
     .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}      

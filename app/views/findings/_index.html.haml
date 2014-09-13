@@ -1,5 +1,5 @@
 %div{'ng-controller' => 'IndexFindingController as vm'}
-  =text_area_tag :finding, '', class: 'wide-text-area', 'ng-model' => 'vm.newFinding.comment', style: 'margin-top:20px'
+  =text_area_tag :finding, '', class: 'wide-text-area', 'ng-model' => 'vm.newFinding.comment', style: 'margin-top:20px; height: 1em'
   =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'vm.createFinding(vm.newFinding)')
 
   %div{style: 'clear:both'}
