@@ -61,5 +61,6 @@
     %div{'ng-if' => 'vm.selected_tab == 3'}
       %h4 Fundings
 
-  .col-sm-6
-    %iframe{'src' => 'http://all.discourse.gotong.royong.org', width: '100%', height: '800px', frameborder: 0}
+  .col-sm-6{style: 'height:100%'}
+    %iframe{'src' => 'http://all.discourse.gotong.royong.org', width: '100%', height: '90%',
+      style: 'overflow:hidden;height:90%;width:100%', frameborder: 0}
