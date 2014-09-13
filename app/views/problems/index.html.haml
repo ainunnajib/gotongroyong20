@@ -2,7 +2,7 @@
   %script{src: 'https://maps.googleapis.com/maps/api/js?v=3.exp'}
   -#google.maps.event.addDomListener window, "load", initialize
 
-%div{'ng-app' => 'problemApp', 'ng-controller' => 'IndexProblemController'}
+%div{'ng-app' => 'problemApp', 'ng-controller' => 'IndexProblemController as vm'}
   .row
     .col-sm-8
       #map-canvas
@@ -10,36 +10,36 @@
       .row
         .col-sm-4{class: 'col-sm-2 control-label'} Provinsi
         .col-sm-8
-          = select_tag :province_id, {}, {'ng-model' => 'filter.province',
-            'ng-options' => 'province.name for province in provinces track by province.id', 'ng-change' => 'getKabupatens(filter.province)',
+          = select_tag :province_id, {}, {'ng-model' => 'vm.filter.province',
+            'ng-options' => 'province.name for province in vm.provinces track by province.id', 'ng-change' => 'vm.getKabupatens(vm.filter.province)',
             class: 'form-control'}
       .row.location-filter
         .col-sm-4{class: 'col-sm-2 control-label'} Kabupaten
         .col-sm-8
-          = select_tag :kabupaten_id, {}, {'ng-model' => 'filter.kabupaten',
-            'ng-options' => 'kabupaten.name for kabupaten in kabupatens track by kabupaten.id', 'ng-change' => 'getKecamatans(filter.province, filter.kabupaten)',
+          = select_tag :kabupaten_id, {}, {'ng-model' => 'vm.filter.kabupaten',
+            'ng-options' => 'kabupaten.name for kabupaten in vm.kabupatens track by kabupaten.id', 'ng-change' => 'vm.getKecamatans(vm.filter.province, vm.filter.kabupaten)',
             class: 'form-control'}
       .row.location-filter
         .col-sm-4{class: 'col-sm-2 control-label'} Kecamatan
         .col-sm-8
-          = select_tag :kecamatan_id, {}, {'ng-model' => 'filter.kecamatan',
-            'ng-options' => 'kecamatan.name for kecamatan in kecamatans track by kecamatan.id', 'ng-change' => 'getKelurahans(filter.province, filter.kabupaten, filter.kecamatan)',
+          = select_tag :kecamatan_id, {}, {'ng-model' => 'vm.filter.kecamatan',
+            'ng-options' => 'kecamatan.name for kecamatan in vm.kecamatans track by kecamatan.id', 'ng-change' => 'vm.getKelurahans(vm.filter.province, vm.filter.kabupaten, vm.filter.kecamatan)',
             class: 'form-control'}
       .row.location-filter
         .col-sm-4{class: 'col-sm-2 control-label'} Kelurahan
         .col-sm-8
-          = select_tag :kecamatan_id, {}, {'ng-model' => 'filter.kelurahan',
-            'ng-options' => 'kelurahan.name for kelurahan in kelurahans track by kelurahan.id', class: 'form-control'}
+          = select_tag :kecamatan_id, {}, {'ng-model' => 'vm.filter.kelurahan',
+            'ng-options' => 'kelurahan.name for kelurahan in vm.kelurahans track by kelurahan.id', class: 'form-control'}
       .row.location-filter
         .col-sm-4{class: 'col-sm-2 control-label'} Kategori
         .col-sm-8
-          = select_tag :category_id, {}, {'ng-model' => 'filter.category',
-            'ng-options' => 'category.name for category in categories track by category.id',
+          = select_tag :category_id, {}, {'ng-model' => 'vm.filter.category',
+            'ng-options' => 'category.name for category in vm.categories track by category.id',
             class: 'form-control'}
 
       .row.location-filter
         .col-sm-6.col-sm-offset-4
-          = button_tag :Filter, 'class' => 'btn btn-primary', 'ng-click' => 'filterProblems(filter)'
+          = button_tag :Filter, 'class' => 'btn btn-primary', 'ng-click' => 'vm.filterProblems(vm.filter)'
 
   .row
     .col-sm-12
@@ -49,15 +49,15 @@
           New Problem
   .row
     .col-sm-12{'ng-if' => 'total_pages > 1'}
-      %a.btn.btn-info.btn-sm{"ng-click" => 'fetchPrevPage()', "ng-if" => 'current_page > 1'}
+      %a.btn.btn-info.btn-sm{"ng-click" => 'vm.fetchPrevPage()', "ng-if" => 'vm.current_page > 1'}
         %span.glyphicon.glyphicon-chevron-left
-      Page {{current_page}}/{{total_pages}}
-      %a.btn.btn-info.btn-sm{"ng-click" => 'fetchNextPage()', "ng-if" => 'current_page < total_pages'}
+      Page {{vm.current_page}}/{{vm.total_pages}}
+      %a.btn.btn-info.btn-sm{"ng-click" => 'vm.fetchNextPage()', "ng-if" => 'vm.current_page < vm.total_pages'}
         %span.glyphicon.glyphicon-chevron-right
   .row{style: 'margin-top:20px'}
     .col-sm-12
       %ul.media-list
-        %li.media{'ng-repeat' => 'problem in detailedProblems'}
+        %li.media{'ng-repeat' => 'problem in vm.detailedProblems'}
           .pull-left.vote-counter
             %b
               {{problem.up_vote - problem.down_vote}}
