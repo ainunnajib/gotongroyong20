@@ -1,9 +1,31 @@
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController as vm'}
-  .col-sm-9
+  .col-sm-6
     .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}      
       %vote-section{'vote-up' => 'vm.vote_up()', 'vote-down' => 'vm.vote_down()', 'vote-status' => '{{vm.vote.my_vote_status}}', 'up-vote-count' => '{{vm.vote.up_vote}}', 'down-vote-count' => '{{vm.vote.down_vote}}', 'img-style' => '{{vm.voteImgStyle}}'}
     %h4
       {{vm.problem.title}}
+    = link_to 'Edit', edit_problem_path(params[:id]), class: 'btn btn-info', style: 'margin-top:10px'
+    %br
+    %b Category:
+    {{vm.problem.category_name}}
+    %br
+    %b Province:
+    {{vm.problem.province_name}}
+    %br
+    %b Kabupaten:
+    {{vm.problem.kabupaten_name}}
+    %br
+    %b Kecamatan:
+    {{vm.problem.kecamatan_name}}
+    %br
+    %b Kelurahan:
+    {{vm.problem.kelurahan_name}}
+    %br
+    %b Reported by:
+    {{vm.problem.reported_by.name}}
+    %br
+    %b Urgency:
+    {{vm.problem.urgency_name}}
     %br
     %b Summary:
     {{vm.problem.summary}}
@@ -39,26 +61,5 @@
     %div{'ng-if' => 'vm.selected_tab == 3'}
       %h4 Fundings
 
-  .col-sm-3.well
-    %b Category:
-    {{vm.problem.category_name}}
-    %br
-    %b Province:
-    {{vm.problem.province_name}}
-    %br
-    %b Kabupaten:
-    {{vm.problem.kabupaten_name}}
-    %br
-    %b Kecamatan:
-    {{vm.problem.kecamatan_name}}
-    %br
-    %b Kelurahan:
-    {{vm.problem.kelurahan_name}}
-    %br
-    %b Reported by:
-    {{vm.problem.reported_by.name}}
-    %br
-    %b Urgency:
-    {{vm.problem.urgency_name}}
-    %br
-    = link_to 'Edit', edit_problem_path(params[:id]), class: 'btn btn-info', style: 'margin-top:10px'
+  .col-sm-6
+    %iframe{'src' => 'http://all.discourse.gotong.royong.org', width: '100%', height: '800px', frameborder: 0}
