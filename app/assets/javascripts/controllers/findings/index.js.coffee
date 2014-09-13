@@ -43,13 +43,13 @@ problemApp.controller('IndexFindingController', ['Findings', 'FindingVotes',
     
     vm.createFinding = (finding) ->
       finding.$save({problem_id: gon.problem_id},
-        (data, header) -> vm.loadFindings()
+        (data, header) -> loadFindings()
         (data ,header) -> alert("You need to log in to write finding"))
     
     vm.createReply = (parent_finding, reply) ->
       reply.parent_id = parent_finding.id
       reply.$save({problem_id: gon.problem_id},
-        (data, header) -> vm.loadFindings()
+        (data, header) -> loadFindings()
         (data ,header) -> alert("You need to log in to write finding"))
 
     loadFindings()
