@@ -43,14 +43,11 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
     vm.showFindings = () ->
       vm.selected_tab = 0
 
-    vm.showBrainstorms = () ->
+    vm.showVolunteers = () ->
       vm.selected_tab = 1
 
-    vm.showVolunteers = () ->
-      vm.selected_tab = 2
-
     vm.showFundings = () ->
-      vm.selected_tab = 3
+      vm.selected_tab = 2
 
     ProblemVotes.query({problem_id: gon.problem_id},
     (data, header)->
