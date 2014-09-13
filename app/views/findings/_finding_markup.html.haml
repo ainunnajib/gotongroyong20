@@ -4,7 +4,8 @@
 .comment
   .posted-by
     {{finding.posted_by}}
-  %span{'ng-bind-html' => 'finding.comment | nl2br'}
+  .with-newline<
+    {{finding.comment}}
 
   -if allow_reply
     .reply
