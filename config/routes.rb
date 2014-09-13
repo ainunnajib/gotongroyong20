@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'profiles/:id', :controller => 'profiles', :action => 'show'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
+  get 'discourse/sso', :controller => 'discourse_sso', :action => 'sso'
+
   root to: 'pages#home'
 
   namespace :api, defaults: {format: :json} do
