@@ -4,7 +4,7 @@
 .comment
   .posted-by.pull-left
     {{finding.posted_by}}
-  .btn.btn-danger.pull-right{'ng-click' => 'vm.delete(finding)'}
+  .btn.btn-danger.pull-right{'ng-if' => 'finding.is_owner', 'ng-click' => 'vm.delete(finding)'}
     Delete  
   .clearfix
   .with-newline<

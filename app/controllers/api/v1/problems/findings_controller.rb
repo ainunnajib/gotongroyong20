@@ -32,12 +32,16 @@ class Api::V1::Problems::FindingsController < Api::V1::BaseApisController
     id = params[:id]
     finding = Finding.find(id)
 
-    children = Finding.where(parent_id: id)
-    destroyChildren(children)
+    if(finding.user != current_user)
+      render status: :unauthorized
+    else
+      children = Finding.where(parent_id: id)
+      destroyChildren(children)
 
-    finding.destroy
+      finding.destroy
 
-    render json: {status: 'deleted'}
+      render json: {status: 'deleted'}
+    end
   end
 
   def destroyChildren(items)
