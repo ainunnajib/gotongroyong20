@@ -3,10 +3,7 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
   ($location, $sce, Map, Problems, Categories, ProblemVotes, Findings) ->
   
     vm = this;
-    vm.problem = Problems.get({id: gon.problem_id},
-      (data, header) ->
-        vm.brainstorm_url = $sce.trustAsResourceUrl("http://" + vm.problem.id + ".discourse.gotong.royong.org/session/sso?return_path=%2F")
-)
+    vm.problem = Problems.get({id: gon.problem_id})
     vm.selected_tab = 0
     vm.voteImgStyle = {
         'width': '30px',

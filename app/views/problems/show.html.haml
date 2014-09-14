@@ -64,5 +64,5 @@
 
   .col-sm-6{style: 'height:100%'}
     %h4 Brainstorm for solution
-    %iframe{'ng-src' => '{{vm.brainstorm_url}}', width: '100%', scrolling: "no",
+    %iframe{'src' => "#{@brainstorm_url}", width: '100%', scrolling: "no",
       style: 'overflow:hidden;width:100%', frameborder: 0}

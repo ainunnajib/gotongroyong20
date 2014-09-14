@@ -11,6 +11,7 @@ class ProblemsController < ApplicationController
   # GET /problems/1.json
   def show
     gon.problem_id = params[:id]
+    @brainstorm_url = "http://#{params[:id]}.discourse.gotong.royong.org/session/sso?return_path=%2F"
   end
 
   # GET /problems/new
