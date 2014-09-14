@@ -3,7 +3,7 @@
   =button_tag('Submit', class: 'btn btn-primary pull-right', 'ng-click' => 'vm.createFinding(vm.newFinding)')
 
   %div{style: 'clear:both'}
-  .finding{'ng-repeat' => "finding in vm.findings | orderBy:'up_vote-down_vote':true"}
+  .finding{'ng-repeat' => "finding in vm.findings | orderBy:['-(up_vote-down_vote)','created_at']"}
     =render partial: "findings/finding_markup", locals: {allow_reply: true}
 
     .finding{style: 'margin-left:35px', 'ng-repeat' => "finding in finding.replies | orderBy: 'created_at'"}
