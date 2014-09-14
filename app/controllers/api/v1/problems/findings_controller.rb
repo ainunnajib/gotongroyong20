@@ -27,4 +27,24 @@ class Api::V1::Problems::FindingsController < Api::V1::BaseApisController
   def finding_params
     params.require(:finding).permit(:comment)
   end
+
+  def destroy
+    id = params[:id]
+    finding = Finding.find(id)
+
+    children = Finding.where(parent_id: id)
+    destroyChildren(children)
+
+    finding.destroy
+
+    render json: {status: 'deleted'}
+  end
+
+  def destroyChildren(items)
+    items.each do |item|
+      children = Finding.where(parent_id: item[:id])
+      destroyChildren(children)
+      item.destroy
+    end
+  end
 end
