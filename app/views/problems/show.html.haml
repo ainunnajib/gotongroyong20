@@ -1,7 +1,6 @@
 =content_for :header do
   :coffeescript
-    $(document).ready ->
-      $("textarea").autosize()
+    $(document).ready ->      
       $('iframe').iFrameResize();
 
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController as vm'}
