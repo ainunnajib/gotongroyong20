@@ -3,6 +3,7 @@ json.array! @findings.each do |key, val|
   json.posted_by key.user.name
   json.up_vote key.cached_votes_up
   json.down_vote key.cached_votes_down
+  json.is_owner key.user == current_user
 
   # TODO: Optimize this
   if user_signed_in?
@@ -22,6 +23,7 @@ json.array! @findings.each do |key, val|
         json.posted_by key.user.name
         json.up_vote key.cached_votes_up
         json.down_vote key.cached_votes_down
+        json.is_owner key.user == current_user
 
         # TODO: Optimize this
         if user_signed_in?
@@ -41,6 +43,7 @@ json.array! @findings.each do |key, val|
               json.posted_by key.user.name
               json.up_vote key.cached_votes_up
               json.down_vote key.cached_votes_down
+              json.is_owner key.user == current_user
 
               # TODO: Optimize this
               if user_signed_in?

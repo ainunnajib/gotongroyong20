@@ -2,8 +2,11 @@
   %vote-section{'vote-up' => 'vm.vote_up(finding)', 'vote-down' => 'vm.vote_down(finding)', 'vote-status' => '{{finding.my_vote_status}}', 'up-vote-count' => '{{finding.up_vote}}', 'down-vote-count' => '{{finding.down_vote}}', 'img-style' => '{{vm.voteImgStyle}}'}
 
 .comment
-  .posted-by
+  .posted-by.pull-left
     {{finding.posted_by}}
+  .btn.btn-danger.pull-right{'ng-if' => 'finding.is_owner', 'ng-click' => 'vm.delete(finding)'}
+    Delete  
+  .clearfix
   .with-newline<
     {{finding.comment}}
 

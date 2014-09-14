@@ -32,8 +32,31 @@ problemServices.factory "Problems",
 problemServices.factory "Categories",
   ["$resource", ($resource) -> return $resource("/api/v1/problems/categories")]
 
-problemServices.factory "Findings",
-  ["$resource", ($resource) -> return $resource("/api/v1/problems/details/:problem_id/findings/:finding_id")]
+problemServices.factory "Findings", [
+  "$resource"
+  ($resource) ->
+    initReply = (item) ->
+      if item.replies and item.replies.length
+        angular.forEach item.replies, (reply, idx) ->
+          initReply reply
+          item.replies[idx] = new Findings(reply)
+          return
+
+      return
+      
+    Findings = $resource("/api/v1/problems/details/:problem_id/findings/:finding_id", {},
+      query:
+        method: "GET"
+        isArray: true
+        transformResponse: (data, header) ->          
+          findings = angular.fromJson(data)
+          angular.forEach findings, (finding) ->
+            initReply finding
+                            
+          return findings
+    )
+    return Findings
+]
 
 voteServices = angular.module('voteServices', ['ngResource'])
 voteServices.factory "ProblemVotes",
