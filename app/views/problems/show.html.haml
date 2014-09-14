@@ -2,6 +2,7 @@
   :coffeescript
     $(document).ready ->
       $("textarea").autosize()
+      $('iframe').iFrameResize();
 
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController as vm'}
   .col-sm-6
@@ -63,5 +64,5 @@
 
   .col-sm-6{style: 'height:100%'}
     %h4 Brainstorm for solution
-    %iframe{'ng-src' => '{{vm.brainstorm_url}}', width: '100%', height: '90%',
-      style: 'overflow:hidden;height:90%;width:100%', frameborder: 0}
+    %iframe{'ng-src' => '{{vm.brainstorm_url}}', width: '100%', scrolling: "no",
+      style: 'overflow:hidden;width:100%', frameborder: 0}
