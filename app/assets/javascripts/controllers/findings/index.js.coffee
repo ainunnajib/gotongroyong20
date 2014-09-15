@@ -53,9 +53,10 @@ problemApp.controller('IndexFindingController', ['Findings', 'FindingVotes',
         (data ,header) -> alert("You need to log in to write finding"))
 
     vm.delete = (finding) ->
-      finding.$delete({problem_id: gon.problem_id, finding_id: finding.id},
-        (data,header) -> loadFindings()
-        (data,header) -> alert("You're not authorized to delete this item"))
+      if confirm("Do you really want to delete?") == true
+        finding.$delete({problem_id: gon.problem_id, finding_id: finding.id},
+          (data,header) -> loadFindings()
+          (data,header) -> alert("You're not authorized to delete this item"))
 
     loadFindings()
     
