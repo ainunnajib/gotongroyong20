@@ -9,8 +9,10 @@
   .col-sm-6
     .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}      
       %vote-section{'vote-up' => 'vm.vote_up()', 'vote-down' => 'vm.vote_down()', 'vote-status' => '{{vm.vote.my_vote_status}}', 'up-vote-count' => '{{vm.vote.up_vote}}', 'down-vote-count' => '{{vm.vote.down_vote}}', 'img-style' => '{{vm.voteImgStyle}}'}
-      = link_to edit_problem_path(params[:id]), class: 'btn btn-info btn-sm', style: 'margin-top:20px' do
+      = button_to edit_problem_path(params[:id]), class: 'btn btn-info btn-sm', style: 'margin-top:20px' do
         %span.glyphicon.glyphicon-edit
+      = button_to problem_path(params[:id]), method: :delete, data: {confirm: "Are you sure want to delete this problem?"}, class: 'btn btn-danger btn-sm', style: 'margin-top:20px' do
+        %span.glyphicon.glyphicon-trash
     %div{style: 'overflow: hidden'}
       %h4
         {{vm.problem.title}}
