@@ -5,7 +5,7 @@
   .posted-by.pull-left
     {{finding.posted_by}}
   .btn.btn-danger.pull-right{'ng-if' => 'finding.is_owner', 'ng-click' => 'vm.delete(finding)'}
-    Delete  
+    %span.glyphicon.glyphicon-trash
   .clearfix
   .with-newline<
     {{finding.comment}}
