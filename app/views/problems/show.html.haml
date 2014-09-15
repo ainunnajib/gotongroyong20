@@ -10,62 +10,92 @@
   .col-sm-6
     .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px'}      
       %vote-section{'vote-up' => 'vm.vote_up()', 'vote-down' => 'vm.vote_down()', 'vote-status' => '{{vm.vote.my_vote_status}}', 'up-vote-count' => '{{vm.vote.up_vote}}', 'down-vote-count' => '{{vm.vote.down_vote}}', 'img-style' => '{{vm.voteImgStyle}}'}
-    .pull-left
+      = link_to edit_problem_path(params[:id]), class: 'btn btn-info btn-sm', style: 'margin-top:20px' do
+        %span.glyphicon.glyphicon-edit
+    %div{style: 'overflow: hidden'}
       %h4
         {{vm.problem.title}}
-      = link_to 'Edit', edit_problem_path(params[:id]), class: 'btn btn-info', style: 'margin-top:10px'
-      %br
-      %b Category:
-      {{vm.problem.category_name}}
-      %br
-      %b Province:
-      {{vm.problem.province_name}}
-      %br
-      %b Kabupaten:
-      {{vm.problem.kabupaten_name}}
-      %br
-      %b Kecamatan:
-      {{vm.problem.kecamatan_name}}
-      %br
-      %b Kelurahan:
-      {{vm.problem.kelurahan_name}}
-      %br
-      %b Reported by:
-      {{vm.problem.reported_by.name}}
-      %br
-      %b Urgency:
-      {{vm.problem.urgency_name}}
-      %br
-      %b Summary:
-      {{vm.problem.summary}}
-      %br
-      %b Cause:
-      {{vm.problem.cause}}
-      %br
-      %b Symptom:
-      {{vm.problem.symptom}}
-      %br
-      %b Effect:
-      {{vm.problem.effect}}
-      %br
-
+      / Nav tabs
+      %ul.nav.nav-tabs{:role => "tablist"}
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#overview", :role => "tab"}
+            %span.glyphicon.glyphicon-home
+            Overview
+        %li
+          %a{"data-toggle" => "tab", :href => "#cause", :role => "tab"}
+            %span.glyphicon.glyphicon-fire
+            Cause
+        %li
+          %a{"data-toggle" => "tab", :href => "#symptom", :role => "tab"}
+            %span.glyphicon.glyphicon-eye-open
+            Symptom
+        %li
+          %a{"data-toggle" => "tab", :href => "#effect", :role => "tab"}
+            %span.glyphicon.glyphicon-screenshot
+            Effect
+      / Tab panes
+      .tab-content{style: 'margin: 10px'}
+        #overview.tab-pane.active
+          .row
+            .col-sm-2
+              Urgency
+            .col-sm-3
+              .progress
+                .progress-bar.progress-bar-success.progress-bar-striped.active{"aria-valuemax" => "5", "aria-valuemin" => "0", "aria-valuenow" => "{{vm.problem.urgency + 1}}",
+                  :role => "progressbar", 'ng-style' => "{'width': (vm.problem.urgency + 1) * 1.0/5}"}
+            .col-sm-1
+            .col-sm-2
+              Category
+            .col-sm-3
+              {{vm.problem.category_name}}
+          .row
+            .col-sm-2
+              Location
+            .col-sm-10
+              {{vm.problem.kelurahan_name}},
+              {{vm.problem.kecamatan_name}},
+              {{vm.problem.kabupaten_name}},
+              {{vm.problem.province_name}},
+          .row
+            .col-sm-2
+              Reporter
+            .col-sm-10
+              {{vm.problem.reported_by.name}}
+          .row{style: 'margin-top:10px'}
+            .bs-callout.bs-callout-info
+              %p
+                {{vm.problem.summary}}
+        #cause.tab-pane
+          {{vm.problem.cause}}
+        #symptom.tab-pane
+          {{vm.problem.symptom}}
+        #effect.tab-pane
+          {{vm.problem.effect}}
     .clearfix
 
     %hr
-    %ul.nav.nav-pills
-      %li{'ng-class' => '{active: vm.selected_tab == 0}'}
-        %a{'ng-click' => 'vm.showFindings()', href: '#'} Findings
-      %li{'ng-class' => '{active: vm.selected_tab == 1}'}
-        %a{'ng-click' => 'vm.showVolunteers()', href: '#'} Volunteers
-      %li{'ng-class' => '{active: vm.selected_tab == 2}'}
-        %a{'ng-click' => 'vm.showFundings()', href: '#'} Fundings
 
-    %div{'ng-if' => 'vm.selected_tab == 0'}
-      =render partial: 'findings/index'
-    %div{'ng-if' => 'vm.selected_tab == 1'}
-      %h4 Volunteers
-    %div{'ng-if' => 'vm.selected_tab == 2'}
-      %h4 Fundings
+    %ul.nav.nav-pills{:role => "tablist"}
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#findings", :role => "tab"}
+          %span.glyphicon.glyphicon-search
+          Findings
+      %li
+        %a{"data-toggle" => "tab", :href => "#volunteers", :role => "tab"}
+          %span.glyphicon.glyphicon-user
+          Volunteers
+      %li
+        %a{"data-toggle" => "tab", :href => "#fundings", :role => "tab"}
+          %span.glyphicon.glyphicon-usd
+          Fundings
+
+    .tab-content{style: 'margin: 10px'}
+      #findings.tab-pane.active
+        =render partial: 'findings/index'
+      #volunteers.tab-pane.active
+        %h4 Volunteers
+      #fundings.tab-pane.active
+        %h4 Fundings
 
   .col-sm-6{style: 'height:100%'}
     %h4 Brainstorm for solution

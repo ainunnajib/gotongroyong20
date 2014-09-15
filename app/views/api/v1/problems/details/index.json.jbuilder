@@ -1,7 +1,7 @@
 json.current_page @problems.current_page
 json.total_pages @problems.total_pages
 json.problems(@problems) do |problem|
-  json.extract! problem, :id, :title, :category_name, :summary, :cause, :symptom, :effect, :urgency_name, :images
+  json.extract! problem, :id, :title, :category_name, :summary, :cause, :symptom, :effect, :urgency_name, :urgency, :images
   json.province_name problem.province.name
   json.kabupaten_name problem.kabupaten.name
   json.kecamatan_name problem.kecamatan.name
