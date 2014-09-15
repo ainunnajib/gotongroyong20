@@ -11,6 +11,10 @@
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
+    :coffeescript
+      $(document).ready ->
+        $("textarea").autosize()
+
     = yield :header
   %body
     / Static navbar
