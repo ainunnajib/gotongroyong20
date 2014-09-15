@@ -4,7 +4,6 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
   
     vm = this;
     vm.problem = Problems.get({id: gon.problem_id})
-    vm.selected_tab = 0
     vm.voteImgStyle = {
         'width': '30px',
         'height': '35px'
@@ -37,15 +36,6 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
             vm.vote = data                     
           (data ,header) -> alert("You need to log in to vote"))
 
-    vm.showFindings = () ->
-      vm.selected_tab = 0
-
-    vm.showVolunteers = () ->
-      vm.selected_tab = 1
-
-    vm.showFundings = () ->
-      vm.selected_tab = 2
-
     vm.showImage = (index) ->
       $('.demoLightbox:eq(' + index + ')').lightbox()
       return true
@@ -54,8 +44,6 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
     (data, header)->
       vm.vote = data      
     )
-
-    vm.showFindings()
 
     return vm
 ])
