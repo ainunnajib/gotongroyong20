@@ -60,7 +60,16 @@
               Reporter
             .col-sm-10
               {{vm.problem.reported_by.name}}
-          .row{style: 'margin-top:10px'}
+          .row
+            .col-sm-2{'ng-repeat' => 'image in vm.problem.images track by $index', style: 'padding-left:5px; padding-right:5px'}
+              %a.thumbnail.thumb{"data-toggle" => "lightbox", 'ng-click' => "vm.showImage($index)", style: 'width:100%'}
+                %img{'ng-src' => '{{image}}'}
+              .demoLightbox.lightbox.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+                .lightbox-dialog
+                  .lightbox-content
+                    %img{'ng-src' => '{{image}}'}
+
+          .row
             .bs-callout.bs-callout-info
               .with-newline<
                 {{vm.problem.summary}}

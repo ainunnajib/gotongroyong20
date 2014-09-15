@@ -46,6 +46,10 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
     vm.showFundings = () ->
       vm.selected_tab = 2
 
+    vm.showImage = (index) ->
+      $('.demoLightbox:eq(' + index + ')').lightbox()
+      return true
+
     ProblemVotes.query({problem_id: gon.problem_id},
     (data, header)->
       vm.vote = data      
