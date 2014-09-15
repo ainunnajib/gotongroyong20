@@ -55,6 +55,8 @@ class Problem < ActiveRecord::Base
       new_images = self.images.inject([]) do |res, image|
         if image and image.length > 0
           res.append(image)
+        else
+          res
         end
       end
       self.images = new_images

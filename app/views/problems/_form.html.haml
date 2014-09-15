@@ -42,7 +42,7 @@
 
           // create hidden field
           //var input = $("<input />", { type:'hidden', name: fileInput.attr(' name'), value: url })
-          fileInput.siblings(":hidden").val(url);
+          fileInput.nextAll(":hidden:first").val(url);
         },
         fail: function(e, data) {
           submitButton.prop('disabled', false);
