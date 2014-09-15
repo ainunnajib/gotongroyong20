@@ -2,8 +2,7 @@
   = javascript_include_tag 'iframeResizer.min'
 
   :coffeescript
-    $(document).ready ->
-      $("textarea").autosize()
+    $(document).ready ->      
       $('iframe').iFrameResize();
 
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController as vm'}
