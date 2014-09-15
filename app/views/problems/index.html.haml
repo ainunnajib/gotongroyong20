@@ -65,29 +65,32 @@
               votes
           %a.pull-left
             %img.media-object.thumbnail{'ng-src' => '{{problem.images[0]}}', 'ng-if' => 'problem.images.length > 0'}
-            %img.media-object.thumbnail{'src' => image_path("404.png"), 'ng-if' => '!problem.images'}
+            %img.media-object.thumbnail{'src' => image_path("404.png"), 'ng-if' => '!problem.images || problem.images.length == 0'}
           .media-body
-            -#%td= link_to problem.title, problem}}
-            %h4
-              %a{'ng-href'=>'{{problem.url}}'}
-                {{problem.title}}
-            %p.summary
-              "{{problem.summary}}"
-            %b Category:
-            {{problem.category_name}}
-            {{problem.urgency_name}}
-            %br
-            %b Cause:
-            {{problem.cause}}
-            %br
-            %b Symptom:
-            {{problem.symptom}}
-            %br
-            %b Effects:
-            {{problem.effect}}
-            %br
-            %b Lokasi:
-            {{problem.kelurahan_name}}, {{problem.kecamatan_name}}, {{problem.kabupaten_name}}, {{problem.province_name}}
-            %br
-            %b Dilaporkan oleh:
-            {{problem.reported_by_name}}
+            .col-sm-12
+              %h4
+                %a{'ng-href'=>'{{problem.url}}'}
+                  {{problem.title}}
+            .col-sm-8
+              %p.summary
+                "{{problem.summary | limitTo:800}}"
+            .col-sm-4
+              .col-sm-3
+                %b Category
+              .col-sm-9
+                {{problem.category_name}}
+              .col-sm-3
+                %b Urgency
+              .col-sm-9
+                .progress
+                  .progress-bar.progress-bar-success.progress-bar-striped.active{"aria-valuemax" => "5", "aria-valuemin" => "0", "aria-valuenow" => "{{vm.problem.urgency + 1}}",
+                    :role => "progressbar", 'ng-style' => "{'width': ((problem.urgency + 1) * 100.0 / 5.0) + '%'}"}
+              .col-sm-3
+                %b Location
+              .col-sm-9
+                {{problem.kelurahan_name}}, {{problem.kecamatan_name}}, {{problem.kabupaten_name}}, {{problem.province_name}}
+              .col-sm-3
+                %b Reporter
+              .col-sm-9
+                {{problem.reported_by_name}}
+            .clearfix
