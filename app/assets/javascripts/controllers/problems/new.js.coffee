@@ -3,13 +3,6 @@ problemApp.controller('NewProblemController', ['Provinces', 'Kabupatens', 'Kecam
   (Provinces, Kabupatens, Kecamatans, Kelurahans) ->
     vm = this
 
-    vm.selectedProvince = null;
-    vm.selectedKabupaten = null;
-    vm.selectedKecamatan = null;
-    vm.selectedKelurahan = null;
-    
-    vm.provinces = Provinces.query()
-
     vm.getKabupatens = () ->
       if vm.selectedProvince
         vm.kabupatens = []
@@ -33,6 +26,26 @@ problemApp.controller('NewProblemController', ['Provinces', 'Kabupatens', 'Kecam
         Kelurahans.query({province_id: vm.selectedProvince.id, kabupaten_id: vm.selectedKabupaten.id, kecamatan_id: vm.selectedKecamatan.id},
         (data, header) -> vm.kelurahans = data
         )
-    
+
+    vm.selectedProvince =
+      id: gon.province_id;
+    if vm.selectedProvince.id
+      vm.getKabupatens()
+
+    vm.selectedKabupaten =
+      id: gon.kabupaten_id;
+    if vm.selectedKabupaten.id
+      vm.getKecamatans()
+
+    vm.selectedKecamatan =
+      id: gon.kecamatan_id;
+    if vm.selectedKecamatan.id
+      vm.getKelurahans()
+
+    vm.selectedKelurahan =
+      id: gon.kelurahan_id;
+
+    vm.provinces = Provinces.query()
+
     return vm
 ])

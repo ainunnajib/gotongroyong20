@@ -17,11 +17,15 @@ class ProblemsController < ApplicationController
   # GET /problems/new
   def new
     @problem = Problem.new
+    @problem.images = []
+    initialize_locations(@problem)
     @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
   end
 
   # GET /problems/1/edit
   def edit
+    initialize_locations(@problem)
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
   end
 
   # POST /problems
@@ -36,6 +40,7 @@ class ProblemsController < ApplicationController
         format.json { render :show, status: :created, location: @problem }
       else
         format.html {
+          initialize_locations(@problem)
           @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
           render :new
         }
@@ -54,7 +59,11 @@ class ProblemsController < ApplicationController
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem }
       else
-        format.html { render :edit }
+        format.html {
+          initialize_locations(@problem)
+          @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+          render :edit
+        }
         format.json { render json: @problem.errors, status: :unprocessable_entity }
       end
     end
@@ -80,5 +89,12 @@ class ProblemsController < ApplicationController
     def problem_params
       params.require(:problem).permit(:title, :category_id, :summary, :cause, :symptom, :effect, :urgency,
                                       :province_id, :kabupaten_id, :kecamatan_id, :kelurahan_id, :reported_by, :images => [])
+    end
+
+    def initialize_locations(problem)
+      gon.province_id = problem.province_id
+      gon.kabupaten_id = problem.kabupaten_id
+      gon.kecamatan_id = problem.kecamatan_id
+      gon.kelurahan_id = problem.kelurahan_id
     end
 end

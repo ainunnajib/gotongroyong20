@@ -73,20 +73,15 @@
     .form-group
       = f.label :image, class: 'col-sm-2 control-label'
       .col-sm-10
-        = file_field_tag 'problem[images_dummy][]'
-        = hidden_field_tag 'problem[images][]'
+        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[0]}
         %br
-        = file_field_tag 'problem[images_dummy][]'
-        = hidden_field_tag 'problem[images][]'
+        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[1]}
         %br
-        = file_field_tag 'problem[images_dummy][]'
-        = hidden_field_tag 'problem[images][]'
+        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[2]}
         %br
-        = file_field_tag 'problem[images_dummy][]'
-        = hidden_field_tag 'problem[images][]'
+        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[3]}
         %br
-        = file_field_tag 'problem[images_dummy][]'
-        = hidden_field_tag 'problem[images][]'
+        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[4]}
     .form-group
       = f.label :category_id, class: 'col-sm-2 control-label'
       .col-sm-3

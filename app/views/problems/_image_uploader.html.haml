@@ -1,0 +1,5 @@
+= file_field_tag 'problem[images_dummy][]'
+= hidden_field_tag 'problem[images][]', existing_image_url
+-if existing_image_url
+  %a.thumbnail.thumb
+    %img{'src' => existing_image_url}
