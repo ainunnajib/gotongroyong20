@@ -29,26 +29,14 @@ class Api::V1::Problems::FindingsController < Api::V1::BaseApisController
   end
 
   def destroy
-    id = params[:id]
-    finding = Finding.find(id)
+    finding = Finding.find(params[:id])
 
-    if(finding.user != current_user)
+    if (finding.user != current_user)
       render status: :unauthorized
     else
-      children = Finding.where(parent_id: id)
-      destroyChildren(children)
-
       finding.destroy
 
       render json: {status: 'deleted'}
-    end
-  end
-
-  def destroyChildren(items)
-    items.each do |item|
-      children = Finding.where(parent_id: item[:id])
-      destroyChildren(children)
-      item.destroy
     end
   end
 end

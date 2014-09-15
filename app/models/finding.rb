@@ -3,5 +3,5 @@ class Finding < ActiveRecord::Base
   belongs_to :problem
 
   acts_as_votable
-  acts_as_tree
+  acts_as_tree({dependent: :destroy})
 end
