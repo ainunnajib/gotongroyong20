@@ -24,8 +24,12 @@ class ProblemsController < ApplicationController
 
   # GET /problems/1/edit
   def edit
-    initialize_locations(@problem)
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+    if @problem.reported_by == current_user
+      initialize_locations(@problem)
+      @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+    else
+      redirect_to problem_path(@problem)
+    end
   end
 
   # POST /problems
@@ -52,30 +56,36 @@ class ProblemsController < ApplicationController
   # PATCH/PUT /problems/1
   # PATCH/PUT /problems/1.json
   def update
-    @problem.reported_by = current_user
-
-    respond_to do |format|
-      if @problem.update(problem_params)
-        format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
-        format.json { render :show, status: :ok, location: @problem }
-      else
-        format.html {
-          initialize_locations(@problem)
-          @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
-          render :edit
-        }
-        format.json { render json: @problem.errors, status: :unprocessable_entity }
+    if @problem.reported_by == current_user
+      respond_to do |format|
+        if @problem.update(problem_params)
+          format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
+          format.json { render :show, status: :ok, location: @problem }
+        else
+          format.html {
+            initialize_locations(@problem)
+            @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+            render :edit
+          }
+          format.json { render json: @problem.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to problem_path(@problem)
     end
   end
 
   # DELETE /problems/1
   # DELETE /problems/1.json
   def destroy
-    @problem.destroy
-    respond_to do |format|
-      format.html { redirect_to problems_url, notice: 'Problem was successfully destroyed.' }
-      format.json { head :no_content }
+    if @problem.reported_by == current_user
+      @problem.destroy
+      respond_to do |format|
+        format.html { redirect_to problems_url, notice: 'Problem was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to problem_path(@problem)
     end
   end
 
