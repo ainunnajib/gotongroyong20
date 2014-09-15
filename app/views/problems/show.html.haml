@@ -62,14 +62,20 @@
               {{vm.problem.reported_by.name}}
           .row{style: 'margin-top:10px'}
             .bs-callout.bs-callout-info
-              %p
+              .with-newline<
                 {{vm.problem.summary}}
         #cause.tab-pane
-          {{vm.problem.cause}}
+          .row
+            .col-sm-12.with-newline<
+              {{vm.problem.cause}}
         #symptom.tab-pane
-          {{vm.problem.symptom}}
+          .row
+            .col-sm-12.with-newline<
+              {{vm.problem.symptom}}
         #effect.tab-pane
-          {{vm.problem.effect}}
+          .row
+            .col-sm-12.with-newline<
+              {{vm.problem.effect}}
     .clearfix
 
     %hr
