@@ -8,7 +8,8 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
     indonesia = new google.maps.LatLng(0,  120.644)
     marker = undefined
     map = undefined
-    
+    to_reload_map = true
+
     fetchDetailedProblems = (page, filter) ->
       extractedFilter = extractFilter(filter)
 
@@ -89,13 +90,23 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
     vm.current_page = 1
 
     vm.fetchPrevPage = () ->
+      to_reload_map = false
+      vm.page_navigation_event = true
       updateUrl(vm.current_page - 1, vm.filter)
 
     vm.fetchNextPage = () ->
+      to_reload_map = false
+      vm.page_navigation_event = true
       updateUrl(vm.current_page + 1, vm.filter)
 
     vm.filterProblems = (filter) ->
+      to_reload_map = true
       updateUrl(1, filter)
+
+    vm.orderProblems = (order) ->
+      to_reload_map = false
+      vm.filter.order = order;
+      updateUrl(1, vm.filter)
 
     vm.getKabupatens = (province) ->
       if province
@@ -150,8 +161,8 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
       if params.order
         vm.filter.order = params.order
 
-      # Don't reload map if it is only page change
-      if (old_current_page == vm.current_page)
+      # Reload map only when full filtered data set changed
+      if (to_reload_map == true)
         fetchMapProblems(vm.filter)
 
       fetchDetailedProblems(vm.current_page, vm.filter)
