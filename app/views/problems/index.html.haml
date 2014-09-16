@@ -6,7 +6,7 @@
   .row
     .col-sm-8
       #map-canvas
-    .col-sm-4
+    .col-sm-4{'ng-cloak' => true}
       .row
         .col-sm-4{class: 'col-sm-2 control-label'} Provinsi
         .col-sm-8
@@ -47,7 +47,7 @@
         = link_to new_problem_path, class: 'btn btn-primary' do
           %span.glyphicon.glyphicon-plus
           New Problem
-  .row
+  .row{'ng-cloak' => true}
     .col-sm-12
       %ul.nav.nav-pills.pull-left
         %li{'ng-class' => "vm.filter.order == -1 ? 'active' : ''"}
@@ -64,7 +64,7 @@
         %a.btn.btn-success.btn-sm{"ng-click" => 'vm.fetchNextPage()', "ng-if" => 'vm.current_page < vm.total_pages', style: 'margin-left:5px'}
           Next
           %span.glyphicon.glyphicon-chevron-right
-  .row{style: 'margin-top:20px'}
+  .row{style: 'margin-top:20px', 'ng-cloak' => true}
     .col-sm-12
       %ul.media-list
         %li.media{'ng-repeat' => 'problem in vm.detailedProblems'}
