@@ -56,73 +56,78 @@
     });
   });
 
-%div{'ng-app' => 'problemApp', 'ng-controller' => 'NewProblemController as vm'}
-  = form_for @problem, html: {class:'form-horizontal', id:'problemForm'} do |f|
-    - if @problem.errors.any?
-      #error_explanation
-        .alert.alert-danger
-          %h4= "#{pluralize(@problem.errors.count, "error")} prohibited this problem from being saved:"
-          %ul
-            - @problem.errors.full_messages.each do |msg|
-              %li= msg
+.row{'ng-app' => 'problemApp', 'ng-controller' => 'NewProblemController as vm'}
+  .col-sm-9
+    = form_for @problem, html: {class:'form-horizontal', id:'problemForm'} do |f|
+      - if @problem.errors.any?
+        #error_explanation
+          .alert.alert-danger
+            %h4= "#{pluralize(@problem.errors.count, "error")} prohibited this problem from being saved:"
+            %ul
+              - @problem.errors.full_messages.each do |msg|
+                %li= msg
 
-    .form-group
-      = f.label :title, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :title, class: 'form-control'
-    .form-group
-      = f.label :image, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[0]}
-        %br
-        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[1]}
-        %br
-        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[2]}
-        %br
-        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[3]}
-        %br
-        = render partial: "image_uploader", locals: {existing_image_url: @problem.images[4]}
-    .form-group
-      = f.label :category_id, class: 'col-sm-2 control-label'
-      .col-sm-3
-        = f.select :category_id, Problem.all_categories, {}, {class: 'form-control'}
-    .form-group
-      = f.label :summary, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_area :summary, class: 'form-control'
-    .form-group
-      = f.label :cause, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_area :cause, class: 'form-control'
-    .form-group
-      = f.label :symptom, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_area :symptom, class: 'form-control'
-    .form-group
-      = f.label :effect, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_area :effect, class: 'form-control'
-    .form-group
-      = f.label :urgency, class: 'col-sm-2 control-label'
-      .col-sm-2
-        = f.select :urgency, Problem.all_urgencies, {}, {class: 'form-control'}
-    .form-group
-      = f.label :lokasi, class: 'col-sm-2 control-label'
-      .col-sm-2
-        = f.select :province_id, [], {}, {'ng-model' => 'vm.selectedProvince',
-          'ng-options' => 'province.name for province in vm.provinces track by province.id', 'ng-change' => 'vm.getKabupatens()',
-          class: 'form-control'}
-      .col-sm-2{'ng-if' => 'vm.kabupatens.length > 0'}
-        = f.select :kabupaten_id, [], {}, {'ng-model' => 'vm.selectedKabupaten',
-          'ng-options' => 'kabupaten.name for kabupaten in vm.kabupatens track by kabupaten.id', 'ng-change' => 'vm.getKecamatans()',
-          class: 'form-control'}
-      .col-sm-2{'ng-if' => 'vm.kecamatans.length > 0'}
-        = f.select :kecamatan_id, [], {}, {'ng-model' => 'vm.selectedKecamatan',
-          'ng-options' => 'kecamatan.name for kecamatan in vm.kecamatans track by kecamatan.id', 'ng-change' => 'vm.getKelurahans()',
-          class: 'form-control'}
-      .col-sm-2{'ng-if' => 'vm.kelurahans.length > 0'}
-        = f.select :kelurahan_id, [], {}, {'ng-model' => 'vm.selectedKelurahan',
-          'ng-options' => 'kelurahan.name for kelurahan in vm.kelurahans track by kelurahan.id', class: 'form-control'}
-    .form-group
-      .col-sm-10.col-sm-offset-2
-        = f.submit 'Save', class: 'btn btn-primary'
+      .form-group
+        = f.label :title, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_field :title, class: 'form-control'
+      .form-group
+        = f.label :image, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[0]}
+          %br
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[1]}
+          %br
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[2]}
+          %br
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[3]}
+          %br
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[4]}
+      .form-group
+        = f.label :category_id, class: 'col-sm-2 control-label'
+        .col-sm-3
+          = f.select :category_id, Problem.all_categories, {}, {class: 'form-control'}
+      .form-group
+        = f.label :summary, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_area :summary, class: 'form-control', style: 'height: 300px'
+      .form-group
+        = f.label :cause, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_area :cause, class: 'form-control'
+      .form-group
+        = f.label :symptom, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_area :symptom, class: 'form-control'
+      .form-group
+        = f.label :effect, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_area :effect, class: 'form-control'
+      .form-group
+        = f.label :urgency, class: 'col-sm-2 control-label'
+        .col-sm-2
+          = f.select :urgency, Problem.all_urgencies, {}, {class: 'form-control'}
+      .form-group
+        = f.label :lokasi, class: 'col-sm-2 control-label'
+        .col-sm-2
+          = f.select :province_id, [], {}, {'ng-model' => 'vm.selectedProvince',
+            'ng-options' => 'province.name for province in vm.provinces track by province.id', 'ng-change' => 'vm.getKabupatens()',
+            class: 'form-control'}
+        .col-sm-2{'ng-if' => 'vm.kabupatens.length > 0'}
+          = f.select :kabupaten_id, [], {}, {'ng-model' => 'vm.selectedKabupaten',
+            'ng-options' => 'kabupaten.name for kabupaten in vm.kabupatens track by kabupaten.id', 'ng-change' => 'vm.getKecamatans()',
+            class: 'form-control'}
+        .col-sm-2{'ng-if' => 'vm.kecamatans.length > 0'}
+          = f.select :kecamatan_id, [], {}, {'ng-model' => 'vm.selectedKecamatan',
+            'ng-options' => 'kecamatan.name for kecamatan in vm.kecamatans track by kecamatan.id', 'ng-change' => 'vm.getKelurahans()',
+            class: 'form-control'}
+        .col-sm-2{'ng-if' => 'vm.kelurahans.length > 0'}
+          = f.select :kelurahan_id, [], {}, {'ng-model' => 'vm.selectedKelurahan',
+            'ng-options' => 'kelurahan.name for kelurahan in vm.kelurahans track by kelurahan.id', class: 'form-control'}
+      .form-group
+        = f.label "Alamat lengkap", class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_field :address, class: 'form-control'
+      .form-group
+        .col-sm-10.col-sm-offset-2
+          = f.submit 'Save', class: 'btn btn-primary'
