@@ -5,7 +5,7 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
     vm = this
     
     mapProblems = []
-    indonesia = new google.maps.LatLng(0,  120.644)
+    indonesia = new google.maps.LatLng(-1.80,  117.044)
     marker = undefined
     map = undefined
     to_reload_map = true
@@ -34,7 +34,7 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
 
     initialize = ->
       mapOptions =
-        zoom: 4
+        zoom: 5
         center: indonesia
 
       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions)
