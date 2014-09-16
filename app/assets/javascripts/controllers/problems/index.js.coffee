@@ -14,7 +14,7 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
 
       Problems.query({page: page, province_id: extractedFilter.province_id
         , kabupaten_id: extractedFilter.kabupaten_id , kecamatan_id: extractedFilter.kecamatan_id, kelurahan_id: extractedFilter.kelurahan_id
-        , category_id: extractedFilter.category_id},
+        , category_id: extractedFilter.category_id, order: extractedFilter.order},
       (data, header) ->
         vm.detailedProblems = data.problems
         vm.current_page = data.current_page
@@ -62,6 +62,7 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
       kecamatan_id: if filter.kecamatan.id == -1 then undefined else filter.kecamatan.id
       kelurahan_id: if filter.kelurahan.id == -1 then undefined else filter.kelurahan.id
       category_id: if filter.category.id == -1 then undefined  else filter.category.id
+      order: if filter.order == -1 then undefined else filter.order
 
     updateUrl = (page, filter) ->
       extractedFilter = extractFilter(filter)
@@ -83,6 +84,7 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
       kecamatan: {id: -1} #all
       kelurahan: {id: -1} #all
       category: {id: -1} #all
+      order: -1 #hot
 
     vm.current_page = 1
 
@@ -144,6 +146,9 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
         vm.filter.kecamatan.id = parseInt(params.kecamatan_id)
         vm.getKelurahans(vm.filter.province, vm.filter.kabupaten, vm.filter.kecamatan)
       if params.kelurahan_id then vm.filter.kelurahan.id = parseInt(params.kelurahan_id)
+
+      if params.order
+        vm.filter.order = params.order
 
       # Don't reload map if it is only page change
       if (old_current_page == vm.current_page)

@@ -48,12 +48,22 @@
           %span.glyphicon.glyphicon-plus
           New Problem
   .row
-    .col-sm-12{'ng-if' => 'vm.total_pages > 1'}
-      %a.btn.btn-info.btn-sm{"ng-click" => 'vm.fetchPrevPage()', "ng-if" => 'vm.current_page > 1'}
-        %span.glyphicon.glyphicon-chevron-left
-      Page {{vm.current_page}}/{{vm.total_pages}}
-      %a.btn.btn-info.btn-sm{"ng-click" => 'vm.fetchNextPage()', "ng-if" => 'vm.current_page < vm.total_pages'}
-        %span.glyphicon.glyphicon-chevron-right
+    .col-sm-12
+      %ul.nav.nav-pills.pull-left
+        %li{'ng-class' => "vm.filter.order == -1 ? 'active' : ''"}
+          %a.thumb{'ng-click' => "vm.filter.order = -1; vm.filterProblems(vm.filter)"} Hot
+        %li{'ng-class' => "vm.filter.order == 'popular' ? 'active' : ''"}
+          %a.thumb{'ng-click' => "vm.filter.order = 'popular'; vm.filterProblems(vm.filter)"} Popular
+        %li{'ng-class' => "vm.filter.order == 'latest' ? 'active' : ''"}
+          %a.thumb{'ng-click' => "vm.filter.order = 'latest'; vm.filterProblems(vm.filter)"} Latest
+      .pager{'ng-if' => 'vm.total_pages > 1', style: 'margin:0px'}
+        %a.btn.btn-success.btn-sm{"ng-click" => 'vm.fetchPrevPage()', "ng-if" => 'vm.current_page > 1', style: 'margin-right:5px'}
+          %span.glyphicon.glyphicon-chevron-left
+          Prev
+        Page {{vm.current_page}} / {{vm.total_pages}}
+        %a.btn.btn-success.btn-sm{"ng-click" => 'vm.fetchNextPage()', "ng-if" => 'vm.current_page < vm.total_pages', style: 'margin-left:5px'}
+          Next
+          %span.glyphicon.glyphicon-chevron-right
   .row{style: 'margin-top:20px'}
     .col-sm-12
       %ul.media-list
