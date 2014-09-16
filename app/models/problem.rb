@@ -5,7 +5,7 @@ class Problem < ActiveRecord::Base
   belongs_to :kecamatan
   belongs_to :kelurahan
 
-  validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :kelurahan, :urgency, :presence => true
+  validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :kelurahan, :urgency, :address, :presence => true
   before_validation :remove_empty_images
 
   geocoded_by :address_with_province
