@@ -7,7 +7,11 @@ class Problem < ActiveRecord::Base
 
   validates :title, :summary, :category_id, :province, :kabupaten, :kecamatan, :kelurahan, :urgency, :presence => true
   before_validation :remove_empty_images
-  before_save :set_total_point
+
+  geocoded_by :address_with_province
+  after_validation :geocode
+
+  before_save :set_total_point, :set_latitude_longitude_if_geocode_fail
 
   acts_as_votable
 
@@ -27,14 +31,6 @@ class Problem < ActiveRecord::Base
     Problem.all_urgencies[self.urgency][0]
   end
 
-  def latitude
-    return self.kelurahan.latitude
-  end
-
-  def longitude
-    return self.kelurahan.longitude
-  end
-
   def province_name
     return self.province.name
   end
@@ -49,6 +45,12 @@ class Problem < ActiveRecord::Base
 
   def kelurahan_name
     return self.kelurahan.name
+  end
+
+  private
+
+  def address_with_province
+    return self.address + ", " + self.province.name
   end
 
   def remove_empty_images
@@ -76,5 +78,14 @@ class Problem < ActiveRecord::Base
     end
 
     self.total_point = normalized_vote_point + time_point
+  end
+
+  def set_latitude_longitude_if_geocode_fail
+    unless (self.latitude? and self.longitude?)
+      puts self.kelurahan.latitude
+      puts self.kelurahan.longitude
+      self.latitude = self.kelurahan.latitude
+      self.longitude = self.kelurahan.longitude
+    end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916074602) do
+ActiveRecord::Schema.define(version: 20140916075543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(version: 20140916074602) do
     t.integer  "cached_votes_down", default: 0
     t.integer  "total_point",       default: 0
     t.text     "address"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "problems", ["cached_votes_down"], name: "index_problems_on_cached_votes_down", using: :btree
