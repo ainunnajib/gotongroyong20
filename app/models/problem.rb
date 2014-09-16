@@ -47,8 +47,6 @@ class Problem < ActiveRecord::Base
     return self.kelurahan.name
   end
 
-  private
-
   def address_with_province
     return self.address + ", " + self.province.name
   end
