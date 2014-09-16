@@ -8,14 +8,14 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
     indonesia = new google.maps.LatLng(-1.80,  117.044)
     marker = undefined
     map = undefined
-    to_reload_map = true
+    vm.to_reload_map = true
 
     fetchDetailedProblems = (page, filter) ->
       extractedFilter = extractFilter(filter)
 
       Problems.query({page: page, province_id: extractedFilter.province_id
         , kabupaten_id: extractedFilter.kabupaten_id , kecamatan_id: extractedFilter.kecamatan_id, kelurahan_id: extractedFilter.kelurahan_id
-        , category_id: extractedFilter.category_id, order: extractedFilter.order},
+        , category_id: extractedFilter.category_id, order: extractedFilter.order, latitude: extractedFilter.latitude, longitude: extractedFilter.longitude},
       (data, header) ->
         vm.detailedProblems = data.problems
         vm.current_page = data.current_page
@@ -27,7 +27,7 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
 
       mapProblems = Map.query({province_id: extractedFilter.province_id
         , kabupaten_id: extractedFilter.kabupaten_id , kecamatan_id: extractedFilter.kecamatan_id, kelurahan_id: extractedFilter.kelurahan_id
-        , category_id: extractedFilter.category_id},
+        , category_id: extractedFilter.category_id, latitude: extractedFilter.latitude, longitude: extractedFilter.longitude},
       (data, header) ->
         initialize()
       )
@@ -64,8 +64,10 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
       kelurahan_id: if filter.kelurahan.id == -1 then undefined else filter.kelurahan.id
       category_id: if filter.category.id == -1 then undefined  else filter.category.id
       order: if filter.order == -1 then undefined else filter.order
+      latitude: if filter.latitude == -1 then undefined else filter.latitude
+      longitude: if filter.longitude == -1 then undefined else filter.longitude
 
-    updateUrl = (page, filter) ->
+    vm.updateUrl = (page, filter) ->
       extractedFilter = extractFilter(filter)
       url_params = {}
       for k, v of extractedFilter
@@ -75,6 +77,7 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
           url_params[k] = v
       if page != 1
         url_params['page'] = page
+
       $location.search(url_params)
     
     prependAll = (data) -> [{name: 'ALL', id: -1}].concat(data)
@@ -86,27 +89,42 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
       kelurahan: {id: -1} #all
       category: {id: -1} #all
       order: -1 #hot
+      latitude: -1 #false
+      longitude: -1 #false
 
     vm.current_page = 1
 
     vm.fetchPrevPage = () ->
-      to_reload_map = false
+      vm.to_reload_map = false
       vm.page_navigation_event = true
-      updateUrl(vm.current_page - 1, vm.filter)
+      vm.updateUrl(vm.current_page - 1, vm.filter)
 
     vm.fetchNextPage = () ->
-      to_reload_map = false
+      vm.to_reload_map = false
       vm.page_navigation_event = true
-      updateUrl(vm.current_page + 1, vm.filter)
+      vm.updateUrl(vm.current_page + 1, vm.filter)
 
-    vm.filterProblems = (filter) ->
-      to_reload_map = true
-      updateUrl(1, filter)
+    vm.filterProblems = (filter, near_only) ->
+      if near_only
+        $.get('http://freegeoip.net/json/', (data) ->
+          vm.filter.longitude = data.longitude
+          vm.filter.latitude = data.latitude
+
+          vm.to_reload_map = true
+          vm.updateUrl(1, vm.filter)
+
+          $scope.$apply()
+        )
+      else
+        vm.filter.longitude = -1
+        vm.filter.latitude = -1
+        vm.to_reload_map = true
+        vm.updateUrl(1, vm.filter)
 
     vm.orderProblems = (order) ->
-      to_reload_map = false
+      vm.to_reload_map = false
       vm.filter.order = order;
-      updateUrl(1, vm.filter)
+      vm.updateUrl(1, vm.filter)
 
     vm.getKabupatens = (province) ->
       if province
@@ -160,9 +178,13 @@ problemApp.controller('IndexProblemController', ['$scope', '$location', 'Provinc
 
       if params.order
         vm.filter.order = params.order
+      if params.latitude
+        vm.filter.latitude = params.latitude
+      if params.longitude
+        vm.filter.longitude = params.longitude
 
       # Reload map only when full filtered data set changed
-      if (to_reload_map == true)
+      if (vm.to_reload_map == true)
         fetchMapProblems(vm.filter)
 
       fetchDetailedProblems(vm.current_page, vm.filter)

@@ -20,6 +20,10 @@ class Api::V1::Problems::DetailsController < Api::V1::BaseApisController
       @problems = @problems.order("total_point").reverse_order
     end
 
+    if params[:latitude] and params[:longitude]
+      @problems = @problems.near([params[:latitude], params[:longitude]], 20)
+    end
+
     @problems = @problems.paginate(page: params[:page], per_page: 20)
   end
 

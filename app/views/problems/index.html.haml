@@ -30,6 +30,7 @@
         .col-sm-8
           = select_tag :kecamatan_id, {}, {'ng-model' => 'vm.filter.kelurahan',
             'ng-options' => 'kelurahan.name for kelurahan in vm.kelurahans track by kelurahan.id', class: 'form-control'}
+      %hr
       .row.location-filter
         .col-sm-4{class: 'col-sm-2 control-label'} Kategori
         .col-sm-8
@@ -38,9 +39,13 @@
             class: 'form-control'}
 
       .row.location-filter
-        .col-sm-6.col-sm-offset-4
-          = button_tag :Filter, 'class' => 'btn btn-primary', 'ng-click' => 'vm.filterProblems(vm.filter)'
-
+        .col-sm-8.col-sm-offset-4
+          %a{'class' => 'btn btn-primary btn-md', 'ng-click' => 'vm.filterProblems(vm.filter, false)'}
+            %span.glyphicon.glyphicon-search
+            Search all
+          %a{'class' => 'btn btn-success btn-md', 'ng-click' => 'vm.filterProblems(vm.filter, true)'}
+            %span.glyphicon.glyphicon-globe
+            Near me
   .row
     .col-sm-12
       .pull-right
