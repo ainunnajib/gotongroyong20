@@ -15,19 +15,19 @@ class Api::V1::VotesController < Api::V1::BaseApisController
     end
 
     if (item.user == current_user)
-      render status: :unauthorized
+      head :unauthorized
+    else
+      type = params[:type]
+      if type == "up"
+        item.upvote_from current_user
+      elsif type == "down"
+        item.downvote_from current_user
+      elsif type == "unvote"
+        my_vote_status = if current_user.voted_up_on? item then :up else :down end
+        if my_vote_status == :up then item.unliked_by current_user else item.undisliked_by current_user end
+      end
+      render_index
     end
-
-    type = params[:type]
-    if type == "up"
-      item.upvote_from current_user
-    elsif type == "down"
-      item.downvote_from current_user
-    elsif type == "unvote"
-      my_vote_status = if current_user.voted_up_on? item then :up else :down end
-      if my_vote_status == :up then item.unliked_by current_user else item.undisliked_by current_user end
-    end
-    render_index
   end
 
   private

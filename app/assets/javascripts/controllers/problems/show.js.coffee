@@ -13,8 +13,12 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
       v = new ProblemVotes({type: 'unvote'})
       v.$save({problem_id: gon.problem_id},
       (data, header) ->
-        vm.vote = data             
-      (data ,header) -> alert("You need to log in to vote"))
+        vm.vote = data
+      (data ,header) ->
+        if(data.status = 401)
+          alert("You are not authorized to vote this item")
+        else
+          alert("You need to log in to vote"))
 
     vm.vote_up = () ->
       if(vm.vote.my_vote_status == 'up')
@@ -23,8 +27,12 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
         v = new ProblemVotes({type: 'up'})
         v.$save({problem_id: gon.problem_id},
           (data, header) ->
-            vm.vote = data                      
-          (data ,header) -> alert("You need to log in to vote"))
+            vm.vote = data
+          (data ,header) ->
+            if(data.status = 401)
+              alert("You are not authorized to vote this item")
+            else
+              alert("You need to log in to vote"))
 
     vm.vote_down = () ->
       if(vm.vote.my_vote_status == 'down')
@@ -33,8 +41,12 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
         v = new ProblemVotes({type: 'down'})
         v.$save({problem_id: gon.problem_id},
           (data, header) ->
-            vm.vote = data                     
-          (data ,header) -> alert("You need to log in to vote"))
+            vm.vote = data
+          (data ,header) ->
+            if(data.status = 401)
+              alert("You are not authorized to vote this item")
+            else
+              alert("You need to log in to vote"))
 
     vm.showImage = (index) ->
       $('.demoLightbox:eq(' + index + ')').lightbox()
