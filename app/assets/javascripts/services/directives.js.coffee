@@ -40,3 +40,26 @@ appDirectives .directive "ngEnter", ->
           scope.$eval attrs.ngEnter,
             event: event
         event.preventDefault()
+
+appDirectives.directive 'metaInfo', () ->
+  directive =
+  {
+    restrict: 'AEC',
+    scope: {
+      'metaItem': '@',
+    },
+    link: (scope, element, attrs) ->
+      attrs.$observe('metaItem', () ->
+        meta = scope.$eval(attrs.metaItem);
+
+        if(meta)
+          $('meta[property="og:title"]').attr('content', meta.title)
+          $('meta[property="og:description"]').attr('content', meta.description)
+
+        return
+      )
+      return
+    template: ''
+  }
+
+  return directive

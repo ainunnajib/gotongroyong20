@@ -1,11 +1,26 @@
 !!!
-%html{lang: "en"}
+%html{lang: "en", 'ng-app' => 'problemApp'}
   %head
     %meta{charset: "utf-8"}/
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     %meta{content: "", name: "description"}/
     %meta{content: "", name: "author"}/
+
+    %meta{content: "summary", name: "twitter:card"}/
+    -#%meta{content: "", name: "twitter:site"}/
+    -#%meta{content: "", name: "twitter:title"}/
+    -#%meta{content: "", name: "twitter:description"}/
+    -#%meta{content: "", name: "twitter:creator"}/
+    -#Twitter Summary card images must be at least 200x200px
+    -#%meta{content: "", name: "twitter:image"}/
+
+    %meta{content: "", property: "og:title"}/
+    %meta{content: "article", property: "og:type"}/
+    %meta{content: "", property: "og:image"}/
+    %meta{content: "", property: "og:description"}/
+    %meta{content: "Gotong Royong", property: "og:site_name"}/
+
     %title Gotong Royong 2.0
     = include_gon
     = stylesheet_link_tag    'application', media: 'all'
@@ -14,6 +29,9 @@
     :coffeescript
       $(document).ready ->
         $("textarea").autosize()
+
+    %script{:type => 'text/javascript',
+            :src  => '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-541916414d85d346'}
 
     = yield :header
   %body

@@ -6,6 +6,7 @@
       $('iframe').iFrameResize();
 
 .row{'ng-app' => 'problemApp', 'ng-controller' => 'ShowProblemController as vm'}
+  %meta-info{'meta-item' => '{{vm.meta_item}}'}
   .col-sm-6
     .pull-left{style: 'margin-right: 20px; margin-bottom: 5px; margin-left:10px; margin-top: 20px', 'ng-cloak' => true}
       %vote-section{'is-owner' => 'vm.problem.is_owner', 'vote-up' => 'vm.vote_up()', 'vote-down' => 'vm.vote_down()', 'vote-status' => '{{vm.vote.my_vote_status}}', 'up-vote-count' => '{{vm.vote.up_vote}}', 'down-vote-count' => '{{vm.vote.down_vote}}', 'img-style' => '{{vm.voteImgStyle}}'}
@@ -14,8 +15,11 @@
       = button_to problem_path(params[:id]), method: :delete, data: {confirm: "Are you sure want to delete this problem?"}, 'ng-if' => 'vm.problem.is_owner', class: 'btn btn-danger btn-sm', style: 'margin-top:20px' do
         %span.glyphicon.glyphicon-trash
     %div{style: 'overflow: hidden', 'ng-cloak' => true}
-      %h4
+      %h4.pull-left
         {{vm.problem.title}}
+      .pull-right
+        %div.addthis_sharing_toolbox
+      .clearfix
       / Nav tabs
       %ul.nav.nav-tabs{:role => "tablist"}
         %li.active

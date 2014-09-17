@@ -3,7 +3,18 @@ problemApp.controller('ShowProblemController', ['$location', '$sce', 'Map', 'Pro
   ($location, $sce, Map, Problems, Categories, ProblemVotes, Findings) ->
   
     vm = this;
-    vm.problem = Problems.get({id: gon.problem_id})
+    vm.problem = Problems.get({id: gon.problem_id},
+      (data,header) ->
+        meta_image = if vm.problem.images && vm.problem.images.length > 0 then vm.problem.images[0] else ''
+        vm.meta_item = {
+          'title': vm.problem.title,
+          'description': vm.problem.summary,
+          'image': meta_image
+        }
+
+        return
+    )
+
     vm.voteImgStyle = {
         'width': '30px',
         'height': '35px'
