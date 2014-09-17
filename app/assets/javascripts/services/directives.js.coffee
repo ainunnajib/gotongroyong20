@@ -55,7 +55,7 @@ appDirectives.directive 'metaInfo', () ->
         if(meta)
           $('meta[property="og:title"]').attr('content', meta.title)
           $('meta[property="og:description"]').attr('content', meta.description)
-
+          $('meta[property="og:image"]').attr('content', meta.image)
         return
       )
       return
