@@ -1,5 +1,5 @@
 .pull-left.vote  
-  %vote-section{'vote-up' => 'vm.vote_up(finding)', 'vote-down' => 'vm.vote_down(finding)', 'vote-status' => '{{finding.my_vote_status}}', 'up-vote-count' => '{{finding.up_vote}}', 'down-vote-count' => '{{finding.down_vote}}', 'img-style' => '{{vm.voteImgStyle}}'}
+  %vote-section{'is-owner' => 'finding.is_owner', 'vote-up' => 'vm.vote_up(finding)', 'vote-down' => 'vm.vote_down(finding)', 'vote-status' => '{{finding.my_vote_status}}', 'up-vote-count' => '{{finding.up_vote}}', 'down-vote-count' => '{{finding.down_vote}}', 'img-style' => '{{vm.voteImgStyle}}'}
 
 .comment
   .posted-by.pull-left

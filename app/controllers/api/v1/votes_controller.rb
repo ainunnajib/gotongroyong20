@@ -14,6 +14,10 @@ class Api::V1::VotesController < Api::V1::BaseApisController
         item = Finding.find(params[:finding_id])
     end
 
+    if (item.user == current_user)
+      render status: :unauthorized
+    end
+
     type = params[:type]
     if type == "up"
       item.upvote_from current_user

@@ -7,6 +7,7 @@ appDirectives.directive 'voteSection', () ->
             'upVoteCount': '@',
             'downVoteCount': '@',            
             'voteStatus': '@',
+            'isOwner': '=',
             'imgStyle': '@',            
             'voteUp': '&',
             'voteDown': '&'
@@ -16,14 +17,17 @@ appDirectives.directive 'voteSection', () ->
             scope['upPressedImg'] = image_path('up_pressed.png')
             scope['downInactiveImg'] = image_path('down_inactive.png')
             scope['downPressedImg'] = image_path('down_pressed.png')            
-        template: '<div class="thumb">
-              <img ng-click="voteUp()" ng-src="{{voteStatus == \'up\' && upPressedImg || upInactiveImg}}" ng-style="{{imgStyle}}">
-              <br>
-              <div class="point ng-binding">
-                {{upVoteCount - downVoteCount}}
-              </div>
-              <img ng-click="voteDown()" ng-src="{{voteStatus == \'down\' && downPressedImg || downInactiveImg}}" ng-style="{{imgStyle}}">
-            </div>'        
+        template: ' <div class="thumb">
+                      <div ng-style="{{imgStyle}}">
+                        <img ng-click="voteUp()" ng-src="{{voteStatus == \'up\' && upPressedImg || upInactiveImg}}" ng-style="{{imgStyle}}" ng-if="!isOwner">
+                      </div>
+                      <div class="point ng-binding">
+                        {{upVoteCount - downVoteCount}}
+                      </div>
+                      <div ng-style="{{imgStyle}}">
+                        <img ng-click="voteDown()" ng-src="{{voteStatus == \'down\' && downPressedImg || downInactiveImg}}" ng-style="{{imgStyle}}" ng-if="!isOwner">
+                      </div>
+                    </div>'
     }
     
     return directive
