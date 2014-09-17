@@ -73,16 +73,16 @@
           = f.text_field :title, class: 'form-control'
       .form-group
         = f.label :image, class: 'col-sm-2 control-label'
-        .col-sm-10
-          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[0]}
+        .col-sm-10                  
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images && @problem.images.length > 0 ? @problem.images[0] : nil}
           %br
-          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[1]}
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images && @problem.images.length > 1 ? @problem.images[1] : nil}
           %br
-          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[2]}
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images && @problem.images.length > 2 ? @problem.images[2] : nil}
           %br
-          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[3]}
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images && @problem.images.length > 3 ? @problem.images[3] : nil}
           %br
-          = render partial: "image_uploader", locals: {existing_image_url: @problem.images[4]}
+          = render partial: "image_uploader", locals: {existing_image_url: @problem.images && @problem.images.length > 4 ? @problem.images[4] : nil}
       .form-group
         = f.label :category_id, class: 'col-sm-2 control-label'
         .col-sm-3
