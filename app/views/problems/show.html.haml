@@ -2,6 +2,7 @@
   = javascript_include_tag 'iframeResizer.min'
 
   :coffeescript
+    window.prerenderReady = false
     $(document).ready ->      
       $('iframe').iFrameResize();
 

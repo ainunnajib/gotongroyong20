@@ -62,6 +62,8 @@ appDirectives.directive 'metaInfo', () ->
           imageUrl = "http:" + meta.image
           $('meta[property="og:image"]').attr('content', imageUrl)
           $('meta[name="twitter:image"]').attr('content', imageUrl)
+
+          window.prerenderReady = true;
         return
       )
       return
