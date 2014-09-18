@@ -55,7 +55,13 @@ appDirectives.directive 'metaInfo', () ->
         if(meta)
           $('meta[property="og:title"]').attr('content', meta.title)
           $('meta[property="og:description"]').attr('content', meta.description)
-          $('meta[property="og:image"]').attr('content', meta.image)
+
+          $('meta[name="twitter:title"]').attr('content', meta.title)
+          $('meta[name="twitter:description"]').attr('content', meta.description)
+
+          imageUrl = "http:" + meta.image
+          $('meta[property="og:image"]').attr('content', imageUrl)
+          $('meta[name="twitter:image"]').attr('content', imageUrl)
         return
       )
       return
