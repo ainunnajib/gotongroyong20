@@ -55,7 +55,10 @@ problemApp.controller('IndexFindingController', ['Findings', 'FindingVotes',
     
     vm.createFinding = (finding) ->
       finding.$save({problem_id: gon.problem_id},
-        (data, header) -> loadFindings()
+        (data, header) -> 
+          item = new Findings(data)
+          vm.findings.push(item)
+          vm.newFinding = new Findings()
         (data ,header) -> alert("You need to log in to write finding"))
     
     vm.createReply = (parent_finding, reply) ->

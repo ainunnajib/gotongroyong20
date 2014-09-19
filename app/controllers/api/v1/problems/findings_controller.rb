@@ -17,9 +17,7 @@ class Api::V1::Problems::FindingsController < Api::V1::BaseApisController
     @finding.user = current_user
     @finding.problem_id = params[:detail_id].to_i
 
-    if @finding.save
-      render json: {status: 'created'}
-    else
+    if !@finding.save      
       render status: :unprocessable_entity
     end
   end
